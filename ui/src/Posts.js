@@ -12,6 +12,7 @@ import {
     FormControl,
     NavDropdown,
     Button,
+    ButtonGroup,
     Container,
     Row,
     Col,
@@ -22,7 +23,7 @@ import {
     Card,
     CardGroup
 } from 'react-bootstrap'
-//import StarRatings from './react-star-ratings';
+import leader from './leader.png'
 
 class Posts extends Component {
     constructor(props) {
@@ -30,78 +31,78 @@ class Posts extends Component {
         this.state = {
             posts: [
                 {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                },
-                {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                  },
+                  {
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                },
-                {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                  },
+                  {
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                },
-                {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                  },
+                  {
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                },
-                {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                  },
+                  {
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                },
-                {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                  },
+                  {
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                },
-                {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                  },
+                  {
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                },
-                {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                  },
+                  {
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                },
-                {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                  },
+                  {
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                },
-                {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                  },
+                  {
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                },
-                {
-                    image: "https://cdn2.vectorstock.com/i/1000x1000/24/06/leader-vector-1662406.jpg",
+                  },
+                  {
+                    image: leader,
                     name: "University name 1",
                     header: "location"
-                }
-            ]
-
+                  },
+                  {
+                    image: leader,
+                    name: "University name 1",
+                    header: "location"
+                  }
+            ],
+            rating: ''
         }
 
+        this.handleRatingChange = this.handleRatingChange.bind(this)
     }
-    /*changeRating( newRating, name ) {
+
+    handleRatingChange = event => {
         this.setState({
-          rating: newRating
+            rating: event.target.value
         });
-      }
-      <StarRatings
-          rating={this.state.rating}
-          starRatedColor="blue"
-          changeRating={this.changeRating}
-          numberOfStars={6}
-          name='rating'
-        />
-      */
+        console.log(this.state.rating);
+    }
     render() {
         const cardlist = this.state.posts.map(post => {
             return (
@@ -116,38 +117,53 @@ class Posts extends Component {
                             <Card.Text>Text</Card.Text>
                         </Card.Body>
                         <Card.Footer>
-
+                            <Form>
+                                <Form.Group as={Row} controlId="exampleForm.ControlSelect1">
+                                    <Form.Label column sm={2}>Rating</Form.Label>
+                                    <Col sm={10}>
+                                    <ButtonGroup className="mr-2" aria-label="First group">
+                                        <Button variant="warning" onClick={this.handleRatingChange} value='1'>1</Button>
+                                        <Button variant="warning" onClick={this.handleRatingChange} value='2'>2</Button>
+                                        <Button variant="warning" onClick={this.handleRatingChange} value='3'>3</Button>
+                                        <Button variant="warning" onClick={this.handleRatingChange} value='4'>4</Button>
+                                        <Button variant="warning" onClick={this.handleRatingChange} value='5'>5</Button>
+                                    </ButtonGroup>
+                                    </Col>
+                                </Form.Group>
+                            </Form>
                             <small className="text-muted">Last updated 3 mins ago</small>
                         </Card.Footer>
                     </Card>
-                    
                 </div>
-
-
-
             )
         })
         return (
             <Container>
-                <Row>  
+                <Row>
                     <Col md={{ span: 3, offset: 1 }}>
                         {cardlist}
                     </Col>
 
-                    <Col  md={{ span: 3, offset: 3 }}>
-                    <div>
-                        <br/>
-                    Maps Component
+                    <Col md={{ span: 3, offset: 3 }}>
+                        <div>
+                            <br />
+                            Maps Component
                     </div>
-                       
-                  </Col>
+                    </Col>
                 </Row>
-
-
             </Container>
         );
     }
 }
 
-
 export default Posts;
+
+/*
+<Form.Control as="select" onChange={this.handleRatingChange}>
+                                    <option value='1'>1</option>
+                                    <option value='2'>2</option>
+                                    <option value='3'>3</option>
+                                    <option value='4'>4</option>
+                                    <option value='5'>5</option>
+                                </Form.Control>
+*/
