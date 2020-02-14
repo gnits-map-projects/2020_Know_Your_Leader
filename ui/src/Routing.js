@@ -11,7 +11,9 @@ import Login from './Login'
 import App from './App';
 import Home from './Home'
 import Header from './Header';
-import Profile from './Profile'
+import Profile from './Profile';
+import Upload from './Upload'
+import Actions from './Actions'
 
 
 class Routing extends Component {
@@ -34,6 +36,8 @@ class Routing extends Component {
                     <Route path="/help" component={Help}/>                       
                     <Route path="/logout" component={App}/>                      
                     <Route path="/profile" component={Profile} />
+                    <Route path="/upload" component={Upload} />
+                    <Route path="/actions" component={Actions} />
                 </Switch>
             </Router>
             </div>
