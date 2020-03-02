@@ -3,7 +3,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        UnitTest.class,
+//        UnitTest.class,
         IntegrationTest.class,
         AcceptanceTest.class
 })

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
-
+import java.math.BigInteger;
 import static play.libs.Json.toJson;
 
 /**
@@ -32,9 +32,9 @@ public class PersonController extends Controller {
         this.ec = ec;
     }
 
-    public Result index() {
-        return ok(views.html.index.render());
-    }
+//    public Result index() {
+//        return ok(views.html.index.render());
+//    }
 
     public CompletionStage<Result> addPerson() {
         //Person person = formFactory.form(Person.class).bindFromRequest().get();
@@ -65,5 +65,39 @@ public class PersonController extends Controller {
             return ok();
         }, ec.current());
     }
+
+    public Result login(){
+        JsonNode j = request().body().asJson();
+        String email = j.get("email").asText();
+        String password = j.get("password").asText();
+        Person ps = personRepository.login(email,password);
+        if(ps.email == null || ps.password == null ) {
+            return null;
+        }
+        else{
+            return ok("You are a valid user "+ps.firstname);
+        }
+    }
+    /*public Result update(){
+        JsonNode j = request().body().asJson();
+        String firstname = j.get("firstname").asText();
+        String lastname = j.get("lastname").asText();
+        String password = j.get("password").asText();
+        //BigInteger phoneno = j.get("phoneno").asText();
+        String email = j.get("email").asText();
+        String locality = j.get("locality").asText();
+        //BigInteger pincode = j.get("pincode").asText();
+        //int row = personRepository.update(firstname,lastname,password,phoneno,email,locality,pincode);
+
+        int row = personRepository.update(firstname,lastname,password,email,locality);
+
+        if(row>0) {
+            return ok("successful");
+        }
+        else{
+            return null;
+        }
+
+    }*/
 
 }

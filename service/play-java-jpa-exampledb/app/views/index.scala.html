@@ -3,10 +3,11 @@
 @main("Welcome to Play") {
     <script type='text/javascript' src='@routes.Assets.at("javascripts/index.js")'></script>
 
-    <ul id="persons"></ul>
 
-    <form method="POST" action="@routes.PersonController.addPerson()">
-        <input type="text" name="name"/>
+    <form method="POST" action="@routes.PersonController.addPerson()" >
+        Person name:
+        <input name='person' type="text"/>
+
         <button>Add Person</button>
     </form>
 }

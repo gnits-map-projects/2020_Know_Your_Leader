@@ -112,6 +112,7 @@
         <compiler-classpath>
           <root url="file://$PROJECT_DIR$/build/playBinary/classes"/>
           <root url="file://$PROJECT_DIR$/build/playBinary/resources"/>
+          <root url="file://$PROJECT_DIR$/build/playBinary/testClasses"/>
           <root url="file:///Users/macadmin/.gradle/caches/modules-2/files-2.1/com.typesafe.play/play-guice_2.12/2.6.21/88a5ab45f1bab56bf44c1b31e6e4032cd2669b26/play-guice_2.12-2.6.21.jar"/>
           <root url="file:///Users/macadmin/.gradle/caches/modules-2/files-2.1/com.typesafe.play/play-logback_2.12/2.6.21/17dd34fe1a4a80fe0acd3b023f949c06356c796e/play-logback_2.12-2.6.21.jar"/>
           <root url="file:///Users/macadmin/.gradle/caches/modules-2/files-2.1/com.typesafe.play/play-ahc-ws_2.12/2.6.21/c0c6ac75cded161a524ce2e0f5ad8dcb2072f213/play-ahc-ws_2.12-2.6.21.jar"/>

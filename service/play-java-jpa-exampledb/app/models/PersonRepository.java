@@ -4,6 +4,7 @@ import com.google.inject.ImplementedBy;
 
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
+import java.math.BigInteger;
 
 /**
  * This interface provides a non-blocking API for possibly blocking operations.
@@ -16,4 +17,8 @@ public interface PersonRepository {
     CompletionStage<Person> del(String Name);
 
     CompletionStage<Stream<Person>> list();
+
+    abstract Person login(String email,String password);
+
+    //abstract int update(String firstname,String lastname,String password,String email,String locality);
 }
