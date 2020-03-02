@@ -1,48 +1,110 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
+import { Component } from "react"
+import Form from 'react-bootstrap/Form'
 import './styles.css'
 
+var firstname
+var lastname
+var phoneno
+var email
+var gender
+var locality
+var pincode
+var result
+var id
 
 class Login extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            nameuser: '',
-            pwd: ''
+            emailid: '',
+            password: ''
         }
 
-        this.handleChange = this.handleChange.bind(this)
+        this.handleusernameChange = this.handleemailChange.bind(this)
+        this.handlepasswordChange = this.handlepasswordChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    handleChange(event) {
-        const { name, value } = event.target
-
+    handleemailChange = event => {
         this.setState({
-            [name]: value
-        })
+            emailid: event.target.value
+        });
     }
+
+    handlepasswordChange = event => {
+        this.setState({
+            password: event.target.value
+        });
+    }
+
 
     handleSubmit(event) {
 
-        if (this.state.nameuser !== '') {
+        event.preventDefault();
 
-            if (this.state.pwd !=='') {
-                alert(this.state.nameuser + ' logged in successfully!!!')
-                event.preventDefault()
-            }
+        console.log(this.state)
 
-            else {
-                alert('Please enter your password')
-                event.preventDefault()
-            }
+        var body = {
+            email: this.state.emailid,
+            password: this.state.password
+        }
+
+        console.log(body);
+
+        if (this.state.emailid == "") {
+            alert('Please enter the username')
+        }
+
+        else if (this.state.password == "") {
+            alert('Please enter the password')
         }
 
         else {
-            alert('Please enter your username')
-            event.preventDefault()
-        }
+            const url = "http://localhost:9000/login";
+            let headers = new Headers();
 
+            headers.append('Content-Type', 'application/json');
+            headers.append('Accept', 'application/json');
+
+            headers.append('Access-Control-Allow-origin', url);
+            headers.append('Access-Control-Allow-Credentials', 'true');
+
+            headers.append('POST', 'GET');
+            fetch(url, {
+                headers: headers,
+                method: 'POST',
+                body : JSON.stringify(body)
+            })
+                .then(response => {if(response.ok){
+                    result = response.json()
+                    .then(result => {
+                        id = result.id
+                        firstname = result.firstname
+                        lastname = result.lastname
+                        phoneno = result.phoneno
+                        email = result.email
+                        gender = result.gender
+                        locality = result.locality
+                        pincode = result.pincode
+                        window.sessionStorage.setItem("id",id)
+                        window.sessionStorage.setItem("firstname",firstname)
+                        window.sessionStorage.setItem("lastname",lastname)
+                        window.sessionStorage.setItem("phoneno",phoneno)
+                        window.sessionStorage.setItem("gender",gender)
+                        window.sessionStorage.setItem("locality",locality)
+                        window.sessionStorage.setItem("pincode",pincode)
+                    })
+                    window.sessionStorage.setItem("username",this.state.emailid)
+                    window.location.href = "/home";
+                }
+                else {
+                    console.log("Please check your username or password")
+                    alert("INVALID USERNAME OR PASSWORD")
+                }
+            })
+        }
 
     }
 
@@ -55,35 +117,28 @@ class Login extends Component {
                 <br />
                 <br />
                 <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
                 <div className="auth-wrapper">
                     <div className="auth-inner">
-                        <form action="/home">
-
+                        <Form onSubmit = {this.handleSubmit} >
                             <center><h2>ESTRO</h2></center>
-                            <br />
                             <hr />
-                            <br />
                             <h3>Login</h3>
 
                             <div className="form-group">
-                                <label>User name</label>
-                                <input name='nameuser' type="email" className="form-control" value={this.state.nameuser} onChange={this.handleChange} required />
+                                <Form.Label>Username :</Form.Label>
+                                <input name='emailid' type="text" className="form-control" value={this.state.emailid} onChange={this.handleemailChange} />
                             </div>
 
                             <div className="form-group">
-                                <label>Password</label>
-                                <input name='pwd' type="password" className="form-control" value={this.state.pwd} onChange={this.handleChange} required />
+                                <Form.Label>Password :</Form.Label>
+                                <input name="password" type="password" className="form-control" value={this.state.password} onChange={this.handlepasswordChange} />
                             </div>
+
 
                             <div className="form-group">
                                 <div className="custom-control custom-checkbox">
                                     <input type="checkbox" name='check' className="custom-control-input" id="customCheck1" />
-                                    <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                                    <Form.Label className="custom-control-label" htmlFor="customCheck1">Remember me</Form.Label>
                                 </div>
                             </div>
 
@@ -92,13 +147,11 @@ class Login extends Component {
                                 Forgot <a href="#">password?</a>
                             </p>
 
-
-
                             <p className="forgot-password text-right">
                                 If not registered <a href="/register">Signup?</a>
                             </p>
 
-                        </form>
+                        </Form>
                     </div>
                 </div>
                 <br />

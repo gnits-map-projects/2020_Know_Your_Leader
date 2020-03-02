@@ -6,14 +6,15 @@ class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      firstname: '',
-      lastname: '',
-      password: '',
-      cpassword: '',
-      phno: '',
-      email: '',
-      gender: '',
-      locality: ''
+      firstname : '',
+      lastname : '',
+      password : '',
+      cpassword : '',
+      phno : '',
+      email : '',
+      gender : '',
+      locality : '',
+      pincode : ''
     }
 
     this.handlefirstnameChange = this.handlefirstnameChange.bind(this)
@@ -24,6 +25,7 @@ class Register extends Component {
     this.handleemailChange = this.handleemailChange.bind(this)
     this.handlegenderChange = this.handlegenderChange.bind(this)
     this.handlelocalityChange = this.handlelocalityChange.bind(this)
+    this.handlepincodeChange = this.handlepincodeChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
 
 
@@ -33,46 +35,57 @@ class Register extends Component {
 
   handlefirstnameChange = event => {
     this.setState({
-      firstname: event.target.value
+      firstname : event.target.value
     });
   }
+
   handlelastnameChange = event => {
     this.setState({
-      lastname: event.target.value
+      lastname : event.target.value
     });
   }
+
   handlepasswordChange = event => {
     this.setState({
-      password: event.target.value
+      password : event.target.value
     });
   }
+
   handleconfirmpasswordChange = event => {
     this.setState({
-      cpassword: event.target.value
+      cpassword : event.target.value
     });
   }
+
   handlephnoChange = event => {
     this.setState({
-      phno: event.target.value
+      phno : event.target.value
     });
   }
+
   handleemailChange = event => {
     this.setState({
-      email: event.target.value
+      email : event.target.value
     });
   }
+
   handlegenderChange = event => {
     this.setState({
-      gender: event.target.value
+      gender : event.target.value
     });
   }
+
   handlelocalityChange = event => {
     this.setState({
-      locality: event.target.value
+      locality : event.target.value
     });
   }
 
-
+  handlepincodeChange = event => {
+    this.setState({
+      pincode : event.target.value
+    });
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -87,6 +100,7 @@ class Register extends Component {
       email: this.state.email,
       gender: this.state.gender,
       locality: this.state.locality,
+      pincode: this.state.pincode
     }
     console.log(body);
     if (this.state.firstname == "") {
@@ -115,6 +129,11 @@ class Register extends Component {
 
     else if (this.state.locality == "") {
       alert('Please enter the locality')
+
+    }
+
+    else if (this.state.pincode == "") {
+      alert('Please enter the pincode')
 
     }
 
@@ -147,132 +166,10 @@ class Register extends Component {
         })
         .catch(() => console.log("can't access" + url + "response. "))
 
-
-      alert('Details are submitted successful');
+        window.location.href = "/login";
 
     }
 
-    /* if (this.state.firstname !=='') {
-
-         if (this.state.lastname !== '') {
-
-             if (this.state.password !== '') {
-
-                 if (this.state.cpassword !== '') {
-
-                     if (this.state.cpassword !== this.state.password) {
-                         alert("Passwords donot match, please enter them correctly")
-                         event.preventDefault()
-                     }
-
-                     else {
-
-                         if (this.state.phno !== '') {
-
-                             if (this.state.email !== '') {
-
-                                 if (this.state.gender !== '') {
-
-                                     if (this.state.locality !== '') {
-
-                                         alert(this.state.firstname + ' ' + this.state.lastname + ' of locality ' + this.state.locality + ' registered successfully!!!')
-                                         event.preventDefault()
-                                         //event.preventDefault();
-                                             console.log(this.state)
-                                             var body = {
-                                         
-                                             firstname : this.state.firstname,
-                                             lastname : this.state.lastname,
-                                             password: this.state.password,
-                                             phoneno : this.state.phno,
-                                             email:this.state.email,
-                                             gender : this.state.gender,
-                                             locality : this.state.locality,
-
-
-     
-                                                 }
-                                                  const url = "http://localhost:9000/person";
-                                                 let headers = new Headers();
-                                             
-                                                 headers.append('Content-Type','application/json');
-                                                 headers.append('Accept','application/json');
-                                             
-                                                 headers.append('Access-Control-Allow-origin',url);
-                                                 headers.append('Access-Control-Allow-Credentials','true');
-                                             
-                                                 headers.append('POST','GET');
-                                             
-                                                 fetch(url, {
-                                                 headers:headers,
-                                                 method: 'POST',
-                                                 body: JSON.stringify(body)
-                                                 })
-                                                 .then(response => response.json())
-                                                 .then(contents => {console.log(contents);
-                                                                 
-                                             })
-                                             .catch(()=> console.log("can't access" + url + "response. "))
-
-
-                                             alert('Details are submitted successful');
-                                             
-                                             }
-
-
-                                     
-                                     else {
-                                         alert("Please select your locality")
-                                         event.preventDefault()
-                                     }
-
-                                 }
-
-                                 else {
-                                     alert("Please select your gender")
-                                     event.preventDefault()
-                                 }
-
-                             }
-
-                             else {
-                                 alert("Please enter your email id")
-                                 event.preventDefault()
-                             }
-                         }
-
-                         else {
-                             alert("Please enter your phone number")
-                             event.preventDefault()
-                         }
-                     }
-
-                 }
-
-                 else {
-                     alert("Please re enter your password")
-                     event.preventDefault()
-                 }
-
-             }
-
-             else {
-                 alert("Please enter your password")
-                 event.preventDefault()
-             }
-
-         }
-
-         else {
-             alert("Please enter your last name")
-             event.preventDefault()
-         }
-
-     }
-     else {
-         alert("Please enter your first name")
-         event.preventDefault()
-     }*/
   }
 
 
@@ -284,8 +181,7 @@ class Register extends Component {
         <br />
         <br />
         <br />
-        <br />
-        <br />
+       
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Form onSubmit={this.handleSubmit} >
@@ -379,7 +275,14 @@ class Register extends Component {
                   <option value="Bowenpally">Bowenpally</option>
                   <option value="Boyiguda">Boyiguda</option>
                 </select>
-              </div> <br />
+              </div> 
+
+              <div className="form-group">
+                <Form.Label>Pincode:</Form.Label>
+                <input name='pincode' type="text" className="form-control" value={this.state.pincode} onChange={this.handlepincodeChange} />
+              </div>
+
+              <br />
 
               <button type="submit" onClick={this.handleSubmit} className="btn btn-danger btn-block">Sign Up</button>
               <p className="forgot-password text-right">
@@ -392,8 +295,7 @@ class Register extends Component {
         <br />
         <br />
         <br />
-        <br />
-        <br />
+       
       </div>
     );
   }

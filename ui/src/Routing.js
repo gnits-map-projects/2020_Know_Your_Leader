@@ -14,6 +14,9 @@ import Header from './Header';
 import Profile from './Profile';
 import Upload from './Upload'
 import Actions from './Actions'
+import Rating from './Rating'
+import Edit from './Edit'
+
 
 
 class Routing extends Component {
@@ -34,10 +37,12 @@ class Routing extends Component {
                     <Route exact path="/analytics" component={Analytics}/>                        
                     <Route path="/settings" component={Settings}/>                        
                     <Route path="/help" component={Help}/>                       
-                    <Route path="/logout" component={App}/>                      
+                    <Route path="/logout" component={Logout}/>                      
                     <Route path="/profile" component={Profile} />
                     <Route path="/upload" component={Upload} />
                     <Route path="/actions" component={Actions} />
+                    <Route path="/rating" component={Rating} />
+                    <Route path="/edit" component={Edit} />
                 </Switch>
             </Router>
             </div>
@@ -86,6 +91,14 @@ function About() {
         <Header/>
         <h3>Help</h3>
       </div>
+    );
+  }
+  function Logout() {
+    return (
+      <div>
+     {window.sessionStorage.clear()}
+     {window.location.href = "/"}
+     </div>
     );
   }
  

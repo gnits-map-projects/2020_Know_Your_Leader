@@ -23,85 +23,60 @@ import {
 import Header from './Header';
 import leader from './leader.png'
 
+var email
 
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        },
-        {
-          image: leader,
-          name: "University name 1",
-          header: "location"
-        }
-      ]
+      posts: []
 
     }
     this.handleUpload = this.handleUpload.bind(this)
     this.handleActions = this.handleActions.bind(this)
+    this.handleRating = this.handleRating.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
   }
-  handleUpload(){
+  handleUpload() {
     window.location.href = '/upload'
   }
-  handleActions(){
+  handleActions() {
     window.location.href = '/actions'
   }
-  
+  handleRating() {
+    window.location.href = '/rating'
+  }
+  handleEdit() {
+    window.location.href = '/edit'
+  }
+
+  componentDidMount() {
+   
+
+    email =  window.sessionStorage.getItem("username")
+    
+    const url = 'http://localhost:9000/actionprofile/'+email
+   
+    let headers = new Headers();
+
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+
+    headers.append('Access-Control-Allow-origin', url);
+    headers.append('Access-Control-Allow-Credentials', 'true');
+
+    headers.append('POST', 'GET');
+
+    fetch(url,{
+        headers: headers,
+        method: 'GET'
+
+    })
+    .then(response => response.json()) 
+    .then(response => this.setState({ 'posts' : response})); 
+         
+}
+
   render() {
     const cardlist = this.state.posts.map(post => {
       return (
@@ -109,11 +84,11 @@ class Profile extends Component {
         <div>
           <br />
           <Card style={{ width: '20rem' }}>
-            <Card.Header>{post.header}</Card.Header>
-            <Card.Img variant="top" src={post.image} thumbnail />
+            <Card.Header>{post.email}</Card.Header>
+            <Card.Img variant="top" src={post.actionpath} thumbnail />
             <Card.Body>
-              <Card.Title>Card title</Card.Title>
-              <Card.Text>Text</Card.Text>
+              <Card.Title>{post.actionname}</Card.Title>
+              <Card.Text>{post.description}</Card.Text>
             </Card.Body>
             <Card.Footer>
 
@@ -131,19 +106,30 @@ class Profile extends Component {
         <Container>
           <Row>
             <Col>
-              <Image width="500px" height="500px" src="https://images-na.ssl-images-amazon.com/images/I/51zi1Kib-HL._SX466_.jpg"
+              <Image width="300px" height="300px" src="https://images-na.ssl-images-amazon.com/images/I/51zi1Kib-HL._SX466_.jpg"
                 alt="user pic" rounded />
             </Col>
             <Col>
               <br />
               <br />
-              <h1>User Name</h1>
+              <h2>User Name : {window.sessionStorage.getItem("username")}<br/></h2>
+              
+              <br/>
+              <Button variant="danger" onClick={this.handleRating}>
+                    View Rating
+                    </Button>
+                    <br/>
+                    <br/>
+                <Button variant="danger" onClick={this.handleEdit}>
+                    Edit Profile
+                    </Button>
             </Col>
           </Row>
+          <br/>
           <Row>
             <Col sm={8}>
               <Row>
-                
+
                 <Col>
                   <Button variant="danger" onClick={this.handleUpload}>
                     Upload Your Actions
