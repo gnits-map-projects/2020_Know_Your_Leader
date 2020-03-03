@@ -56,6 +56,11 @@ public class JPAActionRepository implements ActionRepository {
         return supplyAsync(() -> wrap(em -> listf(em,filter)), executionContext);
     }
 
+    @Override
+    public CompletionStage<Action> updateRating(Long actionid, double actionrating) {
+        return supplyAsync(() -> wrap(em -> updateActionRating(em, actionid, actionrating)), executionContext);
+    }
+
     private <T> T wrap(Function<EntityManager, T> function) {
         return jpaApi.withTransaction(function);
     }
@@ -98,7 +103,7 @@ public class JPAActionRepository implements ActionRepository {
        return actions.stream();
     }
 
-    @Override
+    /*@Override
     public Action ratingChange(Long actionid, double arating){
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -108,7 +113,30 @@ public class JPAActionRepository implements ActionRepository {
        double rating = act.getActionrating();
        double actionrating = (rating*numberofusers+arating)/(numberofusers+1);
        numberofusers++;
+        //int i= em.createQuery("update Action a set a.actionrating =: actionrating,a.numberofusers =: numberofusers where a.actionid =: actionid").setParameter("actionrating",actionrating).setParameter("numberofusers",numberofusers).setParameter("actionid",actionid).executeUpdate();
+
+        int i= em.createQuery("update Action a set a.actionrating =: 3,a.numberofusers =: 2 where a.actionid =: actionid").setParameter("actionid",actionid).executeUpdate();
+        if(i>0){
+            Action action=em.createQuery("select a from Action a where a.actionid=:actionid",Action.class).setParameter("actionid",actionid).getSingleResult();
+            return action;
+        }
+        else{
+            return null;
+        }
+    }*/
+
+    private Action updateActionRating(EntityManager em,Long actionid, double arating) {
+        // EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+        // EntityManager em = entityManagerFactory.createEntityManager();
+        //em.getTransaction().begin();
+
+        Action act=em.createQuery("select a from Action a where a.actionid=:actionid",Action.class).setParameter("actionid",actionid).getSingleResult();
+        Long numberofusers = act.getNumberofusers();
+        double rating = act.getActionrating();
+        double actionrating = (rating*numberofusers+arating)/(numberofusers+1);
+        numberofusers++;
         int i= em.createQuery("update Action a set a.actionrating =: actionrating,a.numberofusers =: numberofusers where a.actionid =: actionid").setParameter("actionrating",actionrating).setParameter("numberofusers",numberofusers).setParameter("actionid",actionid).executeUpdate();
+
         if(i!=0){
             Action action=em.createQuery("select a from Action a where a.actionid=:actionid",Action.class).setParameter("actionid",actionid).getSingleResult();
             return action;

@@ -45,6 +45,12 @@ public class JPAPersonRepository implements PersonRepository {
         return supplyAsync(() -> wrap(em -> list(em)), executionContext);
     }
 
+    @Override
+    public CompletionStage<Person> update(String firstname, String lastname, String password, Long phoneno, String email, String locality, Long pincode) {
+        return supplyAsync(() -> wrap(em -> updatevalue(em, firstname, lastname, password, phoneno, email, locality, pincode)), executionContext);
+    }
+
+
     private <T> T wrap(Function<EntityManager, T> function) {
         return jpaApi.withTransaction(function);
     }
@@ -54,10 +60,9 @@ public class JPAPersonRepository implements PersonRepository {
         return person;
     }
 
-    private  Person delete(EntityManager em,String Name)
-    {
+    private Person delete(EntityManager em, String Name) {
         TypedQuery<Person> query = em.createQuery("select p from Person p where p.name= :Name", Person.class);
-        Person person =query.setParameter("Name", Name).getSingleResult();
+        Person person = query.setParameter("Name", Name).getSingleResult();
         em.remove(person);
         return person;
     }
@@ -68,22 +73,26 @@ public class JPAPersonRepository implements PersonRepository {
     }
 
     @Override
-    public Person login(String email, String password){
+    public Person login(String email, String password) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
         EntityManager em = entityManagerFactory.createEntityManager();
         em.getTransaction().begin();
-        Person foundPerson = em.createQuery("select p from Person p where p.email =: email and p.password =: password",Person.class).setParameter("email",email).setParameter("password",password).getSingleResult();
+        Person foundPerson = em.createQuery("select p from Person p where p.email =: email and p.password =: password", Person.class).setParameter("email", email).setParameter("password", password).getSingleResult();
         return foundPerson;
     }
-    /*@Override
-    public int update(String firstname,String lastname,String password,String email,String locality){
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
-        EntityManager em = entityManagerFactory.createEntityManager();
-        em.getTransaction().begin();
-        TypedQuery<int> query = em.createQuery("update Person p set p.firstname =: firstname,p.lastname =: lastname,p.password =: password,p.locality =: locality where p.email =: email ",Person.class);
 
-        int row = query.setParameter("firstname",firstname).setParameter("lastname",lastname).setParameter("password",password).setParameter("email",email).setParameter("locality",locality).executeUpdate();
-        return row;
-    }*/
-    
+
+    private Person updatevalue(EntityManager em, String firstname, String lastname, String password, Long phoneno, String email, String locality, Long pincode) {
+        // EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+        // EntityManager em = entityManagerFactory.createEntityManager();
+        //em.getTransaction().begin();
+        int i = em.createQuery("update Person p set p.firstname =: firstname,p.lastname =: lastname,p.password =: password,p.phoneno=:phoneno,p.locality =: locality,p.pincode=:pincode where p.email =: email").setParameter("firstname", firstname).setParameter("lastname", lastname).setParameter("password", password).setParameter("phoneno", phoneno).setParameter("email", email).setParameter("locality", locality).setParameter("pincode", pincode).executeUpdate();
+        if (i != 0) {
+            Person persons = em.createQuery("select p from Person p where p.email=:email", Person.class).setParameter("email", email).getSingleResult();
+            return persons;
+        } else {
+            return null;
+        }
+    }
+
 }

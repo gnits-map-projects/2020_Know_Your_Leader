@@ -22,7 +22,8 @@ public interface ActionRepository {
 
     CompletionStage<Stream<Action>> listf(String filter);
 
-    abstract Action ratingChange(Long actionid,double actionrating);
+    public CompletionStage<Action> updateRating(Long actionid,double actionrating);
+
 
 }
 

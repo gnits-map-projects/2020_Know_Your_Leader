@@ -39,14 +39,14 @@ public class ActionController extends Controller {
 //        return ok(views.html.index.render());
 //    }
 
-   /* public CompletionStage<Result> addAction() {
+    public CompletionStage<Result> addActionImage() {
         //Action action = formFactory.form(Action.class).bindFromRequest().get();
 
         JsonNode requestJson= request().body().asJson();
         //long actionid=requestJson.get("actionid").asLong();
         String actionname=requestJson.get("actionname").asText();
         String description=requestJson.get("description").asText();
-        long id=requestJson.get("id").asLong();
+        String email=requestJson.get("email").asText();
         String actionpath = null;
         Action action = new Action();
 
@@ -70,7 +70,7 @@ public class ActionController extends Controller {
         //action.setActionid(actionid);
         action.setActionname(actionname);
         action.setDescription(description);
-        action.setId(id);
+        action.setEmail(email);
 
         //action.setActionrating(actionrating);
 
@@ -78,7 +78,7 @@ public class ActionController extends Controller {
             //return redirect(routes.PersonController.index());
             return ok();
         }, ec.current());
-    }*/
+    }
 
     public CompletionStage<Result> addAction() {
         //Person person = formFactory.form(Person.class).bindFromRequest().get();
@@ -122,17 +122,13 @@ public class ActionController extends Controller {
         }, ec.current());
     }
 
-    public Result ratingChange(){
+    public CompletionStage<Result> ratingChange(){
         JsonNode j = request().body().asJson();
         Long actionid = j.get("actionid").asLong();
         double actionrating = j.get("actionrating").asDouble();
-        Action a = actionRepository.ratingChange(actionid,actionrating);
-        if(a == null) {
-            return null;
-        }
-        else{
-            return ok("updated"+a.actionid+" to "+a.actionrating+" no. of users "+a.numberofusers);
-        }
+        return actionRepository.updateRating(actionid,actionrating).thenApplyAsync(p->{
+            return ok("update successful");
+        },ec.current());
     }
 }
 

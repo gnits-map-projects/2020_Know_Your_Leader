@@ -75,29 +75,23 @@ public class PersonController extends Controller {
             return null;
         }
         else{
-            return ok("You are a valid user "+ps.firstname);
+            return ok(toJson(ps));
         }
     }
-    /*public Result update(){
+
+    public CompletionStage<Result> updatePerson(){
         JsonNode j = request().body().asJson();
         String firstname = j.get("firstname").asText();
         String lastname = j.get("lastname").asText();
         String password = j.get("password").asText();
-        //BigInteger phoneno = j.get("phoneno").asText();
+        Long phoneno = j.get("phoneno").asLong();
         String email = j.get("email").asText();
         String locality = j.get("locality").asText();
-        //BigInteger pincode = j.get("pincode").asText();
-        //int row = personRepository.update(firstname,lastname,password,phoneno,email,locality,pincode);
+        Long pincode = j.get("pincode").asLong();
+        return personRepository.update(firstname,lastname,password,phoneno,email,locality,pincode).thenApplyAsync(p->{
+            return ok("update successful");
+        },ec.current());
 
-        int row = personRepository.update(firstname,lastname,password,email,locality);
-
-        if(row>0) {
-            return ok("successful");
-        }
-        else{
-            return null;
-        }
-
-    }*/
+    }
 
 }

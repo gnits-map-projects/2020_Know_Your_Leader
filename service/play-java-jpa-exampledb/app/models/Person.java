@@ -13,11 +13,11 @@ public class Person {
     public String firstname;
     public String lastname;
     public String password;
-    public BigInteger phoneno;
+    public Long phoneno;
     public String email;
     public String gender;
     public String locality;
-    public BigInteger pincode;
+    public Long pincode;
 
     public Long getId() {
         return id;
@@ -31,7 +31,7 @@ public class Person {
     public String getPassword() {
         return password;
     }
-    public BigInteger getPhoneno() {
+    public Long getPhoneno() {
         return phoneno;
     }
     public String getEmail() {
@@ -43,7 +43,7 @@ public class Person {
     public String getLocality() {
         return locality;
     }
-    public BigInteger getPincode() {
+    public Long getPincode() {
         return pincode;
     }
 
@@ -59,7 +59,7 @@ public class Person {
     public void setPassword(String password) {
         this.password = password;
     }
-    public void setPhoneno(BigInteger phoneno) {
+    public void setPhoneno(Long phoneno) {
         this.phoneno = phoneno;
     }
     public void setEmail(String email) {
@@ -71,7 +71,7 @@ public class Person {
     public void setLocality(String locality) {
         this.locality = locality;
     }
-    public void setPincode(BigInteger pincode) {
+    public void setPincode(Long pincode) {
         this.pincode = pincode;
     }
 }

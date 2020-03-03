@@ -20,5 +20,6 @@ public interface PersonRepository {
 
     abstract Person login(String email,String password);
 
-    //abstract int update(String firstname,String lastname,String password,String email,String locality);
+    public CompletionStage<Person> update(String firstname,String lastname,String password,Long phoneno,String email,String locality,Long pincode);
+
 }
