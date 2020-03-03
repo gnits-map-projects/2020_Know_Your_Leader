@@ -2,19 +2,30 @@ import React, { Component } from "react";
 import Form from 'react-bootstrap/Form'
 import Header from './Header'
 
+var a=sessionStorage.getItem("firstname")
+var b=sessionStorage.getItem("lastname")
+var c=sessionStorage.getItem("password")
+var d=sessionStorage.getItem("phoneno")
+var e=sessionStorage.getItem("locality")
+var f=sessionStorage.getItem("pincode")
+var x=sessionStorage.getItem("cpassword")
+
+
+
+
 class Edit extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      firstname: '',
-      lastname: '',
+      firstname: a,
+      lastname: b,
       email: window.localStorage.getItem('username'),
-      password: '',
-      cpassword: '',
-      phno: '',
-      locality: '',
-      pincode: '',
+      password: c,
+      cpassword: x,
+      phno: d,
+      locality: e,
+      pincode: f,
       profilepic: ''
     }
 
@@ -31,6 +42,8 @@ class Edit extends Component {
 
 
   }
+  
+  
 
 
   handlefirstnameChange = event => {
@@ -74,11 +87,11 @@ class Edit extends Component {
       pincode: event.target.value
     });
   }
-  handleImageChange = event => {
+  /*handleImageChange = event => {
     this.setState({
       profilepic: event.target.value
     });
-  }
+  }*/
 
   handleSubmit(event) {
     event.preventDefault();
@@ -154,6 +167,7 @@ class Edit extends Component {
       })
       .then(response => {if(response.ok){
         alert("updated successfully")
+        window.location.href = '/profile'
 
     }
     else {
@@ -261,10 +275,11 @@ class Edit extends Component {
                   <input name='pincode' type="text" className="form-control" value={this.state.pincode} onChange={this.handlepincodeChange} />
                 </div>
 
-                <div className="form-group">
-                  <label>Profile Picture</label>
-                  <input name='profilepic' type="file" className="form-control" value={this.state.profilepic} onChange={this.handleImageChange} />
-                </div>
+                
+                
+
+
+
 
                 <br />
 
@@ -287,3 +302,8 @@ class Edit extends Component {
 }
 
 export default Edit;
+
+/*<div className="form-group">
+                  <label>Profile Picture</label>
+                  <input name='profilepic' type="file" className="form-control" value={this.state.profilepic} onChange={this.handleImageChange} />
+                </div>*/

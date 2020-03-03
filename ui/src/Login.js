@@ -5,6 +5,7 @@ import './styles.css'
 
 var firstname
 var lastname
+var password
 var phoneno
 var email
 var gender
@@ -83,6 +84,7 @@ class Login extends Component {
                         id = result.id
                         firstname = result.firstname
                         lastname = result.lastname
+                        password = result.password
                         phoneno = result.phoneno
                         email = result.email
                         gender = result.gender
@@ -91,6 +93,7 @@ class Login extends Component {
                         window.sessionStorage.setItem("id",id)
                         window.sessionStorage.setItem("firstname",firstname)
                         window.sessionStorage.setItem("lastname",lastname)
+                        window.sessionStorage.setItem("password",password)
                         window.sessionStorage.setItem("phoneno",phoneno)
                         window.sessionStorage.setItem("gender",gender)
                         window.sessionStorage.setItem("locality",locality)
