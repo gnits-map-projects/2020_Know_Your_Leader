@@ -98,18 +98,10 @@ class Actions extends Component {
             </Card.Body>
             <Card.Footer>
               <Form>
-                <Form.Group as={Row} controlId="exampleForm.ControlSelect1">
-                  <Form.Label column sm={2}>Rating</Form.Label>
-                  <Col sm={5}>
-                    <Form.Control as="select" name='rating' value={post.rating} onChange={this.handleRatingChange}>
-                      <option>...</option>
-                      <option value='1'>1</option>
-                      <option value='2'>2</option>
-                      <option value='3'>3</option>
-                      <option value='4'>4</option>
-                      <option value='5'>5</option>
-                    </Form.Control>
-
+                <Form.Group as={Row}>
+                  <Form.Label column sm="2">Rating</Form.Label>
+                  <Col sm="10">
+                    {post.actionrating + "  by  " + post.numberofusers}
                   </Col>
                 </Form.Group>
               </Form>

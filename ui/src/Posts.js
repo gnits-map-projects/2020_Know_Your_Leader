@@ -26,6 +26,7 @@ import {
     Dropdown
 } from 'react-bootstrap'
 import leader from './leader.png'
+import './rating.css'
 
 
 
@@ -35,13 +36,15 @@ class Posts extends Component {
         this.state = {
             posts: [],
             filter: 'none',
-            rating: ''
+            rating: '',
+            rate: 0
         }
 
         this.handleRatingChange = this.handleRatingChange.bind(this)
         this.handleRatingSubmit = this.handleRatingSubmit.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
         this.handleFilterSubmit = this.handleFilterSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
 
     handleRatingChange(event) {
@@ -55,7 +58,13 @@ class Posts extends Component {
             filter: event.target.value
         });
     }
-    handleRatingSubmit(event,aid) {
+
+    handleChange(event){
+        this.setState({'rate' : event.target.value})
+        console.log('Rating: ' + this.state.rate)
+        }
+
+    handleRatingSubmit(event, aid) {
         var body = {
             actionid: aid,
             actionrating: this.state.rating
@@ -80,13 +89,13 @@ class Posts extends Component {
               console.log(contents);
             })
             .catch(() => console.log("can't access" + url + "response. "))*/
-            event.stopPropagation()
-        
-      }
+        event.stopPropagation()
+
+    }
 
     handleFilterSubmit(event) {
         event.preventDefault();
-        
+
         const url = 'http://localhost:9000/actionsf/' + this.state.filter
         let headers = new Headers();
 
@@ -104,9 +113,9 @@ class Posts extends Component {
         })
             .then(response => response.json())
             .then(response => this.setState({ 'posts': response }));
-    
-      }
-    
+
+    }
+
 
     componentDidMount() {
 
@@ -152,11 +161,42 @@ class Posts extends Component {
                                 <Form.Group as={Row}>
                                     <Form.Label column sm="2">Your Rating</Form.Label>
                                     <Col sm="4">
-                                        <Form.Control type="number" name="rating" min="1" max="5" value={this.state.rating} onChange={this.handleRatingChange} />
-                                        </Col>
-                                        <Col sm="4">
-                                           <Button type="submit" onClick={(e) => this.handleRatingSubmit(e, post.actionid)}>Rate</Button>
-                                        </Col>
+                                    <form className="rating" onClick={this.handleChange}>
+                                        <label>
+                                            <input type="radio" name="stars" value="1" />
+                                            <span className="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="stars" value="2" />
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="stars" value="3" />
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="stars" value="4" />
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="stars" value="5" />
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                        </label>
+                                    </form>
+                                    </Col>                                    
+                                    <Col sm="4">
+                                        <Button type="submit" onClick={(e) => this.handleRatingSubmit(e, post.actionid)}>Rate</Button>
+                                    </Col>
                                 </Form.Group>
                             </Form>
                             <small className="text-muted">Last updated 3 mins ago</small>
@@ -177,17 +217,17 @@ class Posts extends Component {
                             <br />
                             <Form>
                                 <Row>
-                                <Form.Group as={Col} controlId="formGridState">
-                                    <Form.Control as="select" value={this.state.filter} onChange={this.handleFilterChange}>
-                                        <option>Sort By...</option>
-                                        <option value="recent">Recent Uploads</option>
-                                        <option value="locality">Locality</option>
-                                        <option value="top-rated">Top Rated Actions</option>
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group as={Col}>
+                                    <Form.Group as={Col} controlId="formGridState">
+                                        <Form.Control as="select" value={this.state.filter} onChange={this.handleFilterChange}>
+                                            <option>Sort By...</option>
+                                            <option value="recent">Recent Uploads</option>
+                                            <option value="locality">Locality</option>
+                                            <option value="top-rated">Top Rated Actions</option>
+                                        </Form.Control>
+                                    </Form.Group>
+                                    <Form.Group as={Col}>
                                         <Button type="submit" onClick={this.handleFilterSubmit}>Submit</Button>
-                                </Form.Group>
+                                    </Form.Group>
                                 </Row>
                             </Form>
                             <br />
@@ -219,5 +259,7 @@ export default Posts;
 
 
 <Button type="submit" onClick={this.handleRatingSubmit(post.actionid)}>Rate</Button>
+
+    <Form.Control type="number" name="rating" min="1" max="5" value={this.state.rating} onChange={this.handleRatingChange} />
 
 */
