@@ -14,7 +14,6 @@ DELETE  /delperson                  controllers.PersonController.deletePerson()
 
 POST    /action                     controllers.ActionController.addAction()
 POST    /actioni                     controllers.ActionController.addActionImage()
-
 POST   /ratingchange                controllers.ActionController.ratingChange()
 GET    /actionprofile/:email        controllers.ActionController.getUserAction(email : String)
 GET     /actions                    controllers.ActionController.getActions()
