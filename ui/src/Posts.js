@@ -161,7 +161,7 @@ class Posts extends Component {
                                 <Form.Group as={Row}>
                                     <Form.Label column sm="2">Your Rating</Form.Label>
                                     <Col sm="4">
-                                    <form className="rating" onClick={this.handleChange}>
+                                    <div className="rating" onClick={this.handleChange}>
                                         <label>
                                             <input type="radio" name="stars" value="1" />
                                             <span className="icon">★</span>
@@ -192,7 +192,7 @@ class Posts extends Component {
                                             <span className="icon">★</span>
                                             <span className="icon">★</span>
                                         </label>
-                                    </form>
+                                    </div>
                                     </Col>                                    
                                     <Col sm="4">
                                         <Button type="submit" onClick={(e) => this.handleRatingSubmit(e, post.actionid)}>Rate</Button>
