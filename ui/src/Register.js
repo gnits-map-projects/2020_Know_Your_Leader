@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form'
 
+const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+const validMobileRegex = RegExp(/^[6-9]{1}[0-9]{9}$/);
+
 class Register extends Component {
 
   constructor(props) {
@@ -14,7 +17,18 @@ class Register extends Component {
       email : '',
       gender : '',
       locality : '',
-      pincode : ''
+      pincode : '',
+      errors:{
+      firstname : '',
+      lastname : '',
+      password : '',
+      cpassword : '',
+      phno : '',
+      email : '',
+      gender : '',
+      locality : '',
+      pincode : '',
+      }
     }
 
     this.handlefirstnameChange = this.handlefirstnameChange.bind(this)
@@ -46,9 +60,21 @@ class Register extends Component {
   }
 
   handlepasswordChange = event => {
-    this.setState({
-      password : event.target.value
-    });
+    // this.setState({
+    //   password : event.target.value
+    // });
+
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+    errors.password = 
+    event.target.value.length < 8
+      ? 'Password must be 8 characters long!'
+      : '';
+    if(errors.password ==  '')
+      {
+        this.setState({p : true});
+      }
+      this.setState({errors, [name]: value});
   }
 
   handleconfirmpasswordChange = event => {
@@ -58,15 +84,38 @@ class Register extends Component {
   }
 
   handlephnoChange = event => {
-    this.setState({
-      phno : event.target.value
-    });
+    // this.setState({
+    //   phno : event.target.value
+    // });
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+    errors.mobile = 
+    (validMobileRegex.test(event.target.value))
+      ? ''
+      : 'Enter a valid phone number!';
+   if(errors.mobile==  '')
+    {
+      this.setState({ph : true});
+    }
+    this.setState({errors, [name]: value});
   }
 
   handleemailChange = event => {
-    this.setState({
+    /*this.setState({
       email : event.target.value
-    });
+    });*/
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+    errors.email = 
+          validEmailRegex.test(event.target.value)
+            ? ''
+            : 'Email is not valid!';
+    console.log(errors.email)
+    if(errors.email ==  '')
+      {
+        this.setState({e : true});
+     }       
+     this.setState({errors, [name]: value});
   }
 
   handlegenderChange = event => {
@@ -175,6 +224,8 @@ class Register extends Component {
 
 
   render() {
+    const {errors} = this.state;
+
     return (
       <div className="bgimage">
         <br />
@@ -202,6 +253,8 @@ class Register extends Component {
               <div className="form-group">
                 <Form.Label>Password :</Form.Label>
                 <input name="password" type="password" className="form-control" value={this.state.password} onChange={this.handlepasswordChange} />
+                <span className='error'>{errors.password}</span>
+
               </div>
 
               <div className="form-group">
@@ -212,11 +265,15 @@ class Register extends Component {
               <div className="form-group">
                 <Form.Label>Phone Number :</Form.Label>
                 <input name="phno" type="number" className="form-control" value={this.state.phno} onChange={this.handlephnoChange} />
+                <span className='error'>{errors.mobile}</span>
+
               </div>
 
               <div className="form-group">
                 <Form.Label>Email address :</Form.Label>
                 <input name="email" type="email" className="form-control" value={this.state.email} onChange={this.handleemailChange} />
+                <span className='error'>{errors.email}</span>
+
               </div>
 
               <div key={'inline-radio'} className='form-group'>

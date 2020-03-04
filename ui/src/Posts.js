@@ -36,15 +36,14 @@ class Posts extends Component {
         this.state = {
             posts: [],
             filter: 'none',
-            rating: '',
-            rate: 0
+            rating: 0
         }
 
         this.handleRatingChange = this.handleRatingChange.bind(this)
         this.handleRatingSubmit = this.handleRatingSubmit.bind(this)
         this.handleFilterChange = this.handleFilterChange.bind(this)
         this.handleFilterSubmit = this.handleFilterSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        
     }
 
     handleRatingChange(event) {
@@ -59,18 +58,15 @@ class Posts extends Component {
         });
     }
 
-    handleChange(event){
-        this.setState({'rate' : event.target.value})
-        console.log('Rating: ' + this.state.rate)
-        }
+   
 
     handleRatingSubmit(event, aid) {
         var body = {
             actionid: aid,
-            actionrating: this.state.rating
+            actionrating: this.state.rate
         }
         console.log(body)
-        /*const url = "http://localhost:9000/ratingchange";
+        const url = "http://localhost:9000/ratingchange";
             let headers = new Headers();
 
             headers.append('Content-Type', 'application/json');
@@ -88,7 +84,7 @@ class Posts extends Component {
             .then(contents => {
               console.log(contents);
             })
-            .catch(() => console.log("can't access" + url + "response. "))*/
+            .catch(() => console.log("can't access" + url + "response. "))
         event.stopPropagation()
 
     }
@@ -141,11 +137,11 @@ class Posts extends Component {
     render() {
         const cardlist = this.state.posts.map(post => {
             return (
-                <div>
+                <div key={post.actionid}>
                     <br />
                     <Card style={{ width: '33rem' }}>
                         <Card.Header>{post.email}</Card.Header>
-                        <Card.Img variant="top" src={post.actionpath} thumbnail />
+                        <Card.Img variant="top" src={post.actionpath} thumbnail="true" />
                         <Card.Body>
                             <Card.Title>{post.actionname}</Card.Title>
                             <Card.Text>{post.description}</Card.Text>
@@ -153,15 +149,15 @@ class Posts extends Component {
                         <Card.Footer>
                             <Form>
                                 <Form.Group as={Row}>
-                                    <Form.Label column sm="2">Rating</Form.Label>
+                                    <Form.Label column sm="2">Avg Rating</Form.Label>
                                     <Col sm="10">
-                                        {post.actionrating + "  by  " + post.numberofusers}
+                                        {post.actionrating + "  by  " + post.numberofusers+" users"}
                                     </Col>
                                 </Form.Group>
                                 <Form.Group as={Row}>
                                     <Form.Label column sm="2">Your Rating</Form.Label>
                                     <Col sm="4">
-                                    <div className="rating" onClick={this.handleChange}>
+                                    <div className="rating" onClick={this.handleRatingChange}>
                                         <label>
                                             <input type="radio" name="stars" value="1" />
                                             <span className="icon">★</span>

@@ -81,11 +81,11 @@ class Profile extends Component {
     const cardlist = this.state.posts.map(post => {
       return (
 
-        <div>
+        <div key={post.actionid}>
           <br />
           <Card style={{ width: '20rem' }}>
             <Card.Header>{post.email}</Card.Header>
-            <Card.Img variant="top" src={post.actionpath} thumbnail />
+            <Card.Img variant="top" src={post.actionpath} thumbnail="true" />
             <Card.Body>
               <Card.Title>{post.actionname}</Card.Title>
               <Card.Text>{post.description}</Card.Text>

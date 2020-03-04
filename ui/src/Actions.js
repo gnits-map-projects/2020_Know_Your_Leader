@@ -87,7 +87,7 @@ class Actions extends Component {
     const cardlist = this.state.posts.map(post => {
       return (
 
-        <div>
+        <div key={post.actionid}>
           <br />
           <Card style={{ width: '33rem' }}>
             <Card.Header>{post.email}</Card.Header>
