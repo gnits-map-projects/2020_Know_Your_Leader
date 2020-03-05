@@ -16,10 +16,11 @@ POST    /action                     controllers.ActionController.addAction()
 POST    /actioni                     controllers.ActionController.addActionImage()
 POST   /ratingchange                controllers.ActionController.ratingChange()
 GET    /actionprofile/:email        controllers.ActionController.getUserAction(email : String)
-GET     /actions                    controllers.ActionController.getActions()
-GET     /actionsf/:filter            controllers.ActionController.getActionsFilter(filter : String)
+GET     /actions/:email              controllers.ActionController.getActions(email : String)
+GET     /actionsf/:email/:filter     controllers.ActionController.getActionsFilter(email : String, filter : String)
 DELETE  /delaction                  controllers.ActionController.deleteAction()
 
+POST    /rating                     controllers.RatingController.addRating()
 
 
 

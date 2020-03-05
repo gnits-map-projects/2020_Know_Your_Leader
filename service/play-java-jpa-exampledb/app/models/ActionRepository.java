@@ -16,11 +16,11 @@ public interface ActionRepository {
 
     CompletionStage<Action> del(String Name);
 
-    CompletionStage<Stream<Action>> list();
+    CompletionStage<Stream<Action>> list(String email);
 
     CompletionStage<Stream<Action>> lista(String email);
 
-    CompletionStage<Stream<Action>> listf(String filter);
+    CompletionStage<Stream<Action>> listf(String email, String filter);
 
     public CompletionStage<Action> updateRating(Long actionid,double actionrating);
 

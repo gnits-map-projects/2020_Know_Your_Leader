@@ -95,8 +95,8 @@ public class ActionController extends Controller {
         }, ec.current());
     }
 
-    public CompletionStage<Result> getActions() {
-        return actionRepository.list().thenApplyAsync(actionStream -> {
+    public CompletionStage<Result> getActions(String email) {
+        return actionRepository.list(email).thenApplyAsync(actionStream -> {
             return ok(toJson(actionStream.collect(Collectors.toList())));
         }, ec.current());
     }
@@ -116,8 +116,8 @@ public class ActionController extends Controller {
         }, ec.current());
     }
 
-    public CompletionStage<Result> getActionsFilter(String filter) {
-        return actionRepository.listf(filter).thenApplyAsync(actionStream -> {
+    public CompletionStage<Result> getActionsFilter(String email, String filter) {
+        return actionRepository.listf(email, filter).thenApplyAsync(actionStream -> {
             return ok(toJson(actionStream.collect(Collectors.toList())));
         }, ec.current());
     }

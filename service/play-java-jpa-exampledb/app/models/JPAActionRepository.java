@@ -42,8 +42,8 @@ public class JPAActionRepository implements ActionRepository {
     }
 
     @Override
-    public CompletionStage<Stream<Action>> list() {
-        return supplyAsync(() -> wrap(em -> list(em)), executionContext);
+    public CompletionStage<Stream<Action>> list(String email) {
+        return supplyAsync(() -> wrap(em -> list(em,email)), executionContext);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class JPAActionRepository implements ActionRepository {
     }
 
     @Override
-    public CompletionStage<Stream<Action>> listf(String filter) {
-        return supplyAsync(() -> wrap(em -> listf(em,filter)), executionContext);
+    public CompletionStage<Stream<Action>> listf(String email, String filter) {
+        return supplyAsync(() -> wrap(em -> listf(em,email,filter)), executionContext);
     }
 
     @Override
@@ -78,27 +78,27 @@ public class JPAActionRepository implements ActionRepository {
         return action;
     }
 
-    private Stream<Action> list(EntityManager em) {
-        List<Action> actions = em.createQuery("select a from Action a", Action.class).getResultList();
+    private Stream<Action> list(EntityManager em,String email) {
+        List<Action> actions = em.createQuery("select a from Action a where a.email !=: email", Action.class).setParameter("email",email).getResultList();
         return actions.stream();
     }
 
     private Stream<Action> lista(EntityManager em,String email) {
-        List<Action> actions = em.createQuery("select a from Action a where a.email =: email", Action.class).setParameter("email",email).getResultList();
+        List<Action> actions = em.createQuery("select a from Action a where a.email =: email order by a.actionid desc", Action.class).setParameter("email",email).getResultList();
         return actions.stream();
     }
 
-   private Stream<Action> listf(EntityManager em,String filter) {
+   private Stream<Action> listf(EntityManager em,String email,String filter) {
 
        List<Action> actions = Collections.emptyList();
         if(filter.equals("top-rated")){
-        actions = em.createQuery("select a from Action a order by a.actionrating desc", Action.class).getResultList();
+        actions = em.createQuery("select a from Action a where a.email !=: email order by a.actionrating desc", Action.class).setParameter("email",email).getResultList();
         }
         else if(filter.equals("recent")) {
-        actions = em.createQuery("select a from Action a order by a.actionid desc", Action.class).getResultList();
+        actions = em.createQuery("select a from Action a where a.email !=: email order by a.actionid desc", Action.class).setParameter("email",email).getResultList();
         }
         else {
-            actions = em.createQuery("select a from Action a", Action.class).getResultList();
+            actions = em.createQuery("select a from Action a where a.email !=: email order by a.actionid desc", Action.class).setParameter("email",email).getResultList();
         }
        return actions.stream();
     }
