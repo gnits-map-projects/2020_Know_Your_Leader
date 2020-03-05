@@ -1,18 +1,6 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams
-} from "react-router-dom";
-import {
-  Navbar,
-  Nav,
-  Form,
-  FormControl,
-  NavDropdown,
   Button,
-  ButtonToolbar,
   Image,
   Container,
   Row,
@@ -21,7 +9,6 @@ import {
   CardColumns
 } from 'react-bootstrap'
 import Header from './Header';
-import leader from './leader.png'
 
 var email
 

@@ -42,10 +42,7 @@ class Register extends Component {
     this.handlepincodeChange = this.handlepincodeChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
 
-
-
   }
-
 
   handlefirstnameChange = event => {
     this.setState({
@@ -70,7 +67,7 @@ class Register extends Component {
     event.target.value.length < 8
       ? 'Password must be 8 characters long!'
       : '';
-    if(errors.password ==  '')
+    if(errors.password ===  '')
       {
         this.setState({p : true});
       }
@@ -93,7 +90,7 @@ class Register extends Component {
     (validMobileRegex.test(event.target.value))
       ? ''
       : 'Enter a valid phone number!';
-   if(errors.mobile==  '')
+   if(errors.mobile ===  '')
     {
       this.setState({ph : true});
     }
@@ -111,7 +108,7 @@ class Register extends Component {
             ? ''
             : 'Email is not valid!';
     console.log(errors.email)
-    if(errors.email ==  '')
+    if(errors.email ===  '')
       {
         this.setState({e : true});
      }       
@@ -152,36 +149,36 @@ class Register extends Component {
       pincode: this.state.pincode
     }
     console.log(body);
-    if (this.state.firstname == "") {
+    if (this.state.firstname === "") {
       alert('Please enter the first name')
     }
 
-    else if (this.state.lastname == "") {
+    else if (this.state.lastname === "") {
       alert('Please enter the last name')
     }
 
-    else if (this.state.password == "") {
+    else if (this.state.password === "") {
       alert('Please enter the password')
     }
 
-    else if (this.state.email == "") {
+    else if (this.state.email === "") {
       alert('Please enter the email')
     }
 
-    else if (this.state.phno == "") {
+    else if (this.state.phno === "") {
       alert('Please enter the phone')
     }
 
-    else if (this.state.gender == "") {
+    else if (this.state.gender === "") {
       alert('Please enter the gender')
     }
 
-    else if (this.state.locality == "") {
+    else if (this.state.locality === "") {
       alert('Please enter the locality')
 
     }
 
-    else if (this.state.pincode == "") {
+    else if (this.state.pincode === "") {
       alert('Please enter the pincode')
 
     }

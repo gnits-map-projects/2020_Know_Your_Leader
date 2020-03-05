@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Component } from "react"
 import Form from 'react-bootstrap/Form'
 import './styles.css'
@@ -54,11 +54,11 @@ class Login extends Component {
 
         console.log(body);
 
-        if (this.state.emailid == "") {
+        if (this.state.emailid === "") {
             alert('Please enter the username')
         }
 
-        else if (this.state.password == "") {
+        else if (this.state.password === "") {
             alert('Please enter the password')
         }
 

@@ -2,19 +2,7 @@ import React, { Component } from "react"
 import './styles.css'
 import Header from './Header'
 import {
-    Navbar,
-    Nav,
-    Form,
-    FormControl,
-    NavDropdown,
-    Button,
-    ButtonToolbar,
-    Image,
-    Container,
-    Row,
-    Col,
-    Card,
-    CardColumns
+    FormControl
 } from 'react-bootstrap'
 
 class Upload extends Component {
@@ -67,15 +55,15 @@ class Upload extends Component {
     }
     console.log(body);
 
-    if (this.state.actionName == "") {
+    if (this.state.actionName === "") {
         alert('Please enter the name of the action')
       }
   
-      else if (this.state.description== "") {
+      else if (this.state.description=== "") {
         alert('Please enter the description for the action')
       }
 
-      else if (this.state.image == "") {
+      else if (this.state.image === "") {
         alert('Please enter the image')
       }
   

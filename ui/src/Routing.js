@@ -20,9 +20,6 @@ import Edit from './Edit'
 
 
 class Routing extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
           <div>

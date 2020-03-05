@@ -110,27 +110,27 @@ class Edit extends Component {
 
     }
     console.log(body);
-    if (this.state.firstname == "") {
+    if (this.state.firstname === "") {
       alert('Please enter the first name')
     }
 
-    else if (this.state.lastname == "") {
+    else if (this.state.lastname === "") {
       alert('Please enter the last name')
     }
 
-    else if (this.state.password == "") {
+    else if (this.state.password === "") {
       alert('Please enter the password')
     }
 
-    else if (this.state.phno == "") {
+    else if (this.state.phno === "") {
       alert('Please enter the phone')
     }
 
-    else if (this.state.locality == "") {
+    else if (this.state.locality === "") {
       alert('Please enter the locality')
     }
 
-    else if (this.state.pincode == "") {
+    else if (this.state.pincode === "") {
       alert('Please enter the pincode')
 
     }

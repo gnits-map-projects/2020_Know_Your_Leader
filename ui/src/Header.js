@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams
-} from "react-router-dom";
-import {
   Navbar,
   Nav,
   Form,
   FormControl,
   NavDropdown,
   Button,
-  Image,
-  InputGroup
+  Image
 } from 'react-bootstrap'
 import profilepic from './profilepic.png'
 import leader from './leader.png'
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <Navbar bg="dark" variant="dark">

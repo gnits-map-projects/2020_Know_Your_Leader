@@ -1,32 +1,13 @@
 import React, { Component } from 'react';
 import Header from './Header.js'
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useParams
-} from "react-router-dom";
-import {
-  Navbar,
-  Nav,
   Form,
-  FormControl,
-  NavDropdown,
-  Button,
-  ButtonGroup,
   Container,
   Row,
   Col,
-  Carousel,
-  Image,
-  CardDeck,
-  CardColumns,
-  Card,
-  CardGroup,
-  DropdownButton,
-  Dropdown
+  Card
 } from 'react-bootstrap'
-import leader from './leader.png'
+
 
 var email
 

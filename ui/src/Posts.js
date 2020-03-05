@@ -1,31 +1,12 @@
 import React, { Component } from 'react';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    useParams
-} from "react-router-dom";
-import {
-    Navbar,
-    Nav,
     Form,
-    FormControl,
-    NavDropdown,
     Button,
-    ButtonGroup,
     Container,
     Row,
     Col,
-    Carousel,
-    Image,
-    CardDeck,
-    CardColumns,
-    Card,
-    CardGroup,
-    DropdownButton,
-    Dropdown
+    Card
 } from 'react-bootstrap'
-import leader from './leader.png'
 import './rating.css'
 
 
@@ -92,7 +73,7 @@ class Posts extends Component {
     handleFilterSubmit(event) {
         event.preventDefault();
 
-        const url = 'http://localhost:9000/actionsf/' + this.state.filter
+        const url = 'http://localhost:9000/actionsf/' + window.sessionStorage.getItem("username") + '/' + this.state.filter
         let headers = new Headers();
 
         headers.append('Content-Type', 'application/json');
@@ -115,7 +96,7 @@ class Posts extends Component {
 
     componentDidMount() {
 
-        const url = 'http://localhost:9000/actions'
+        const url = 'http://localhost:9000/actions/'+window.sessionStorage.getItem("username")
         let headers = new Headers();
 
         headers.append('Content-Type', 'application/json');
@@ -159,29 +140,29 @@ class Posts extends Component {
                                     <Col sm="4">
                                     <div className="rating" onClick={this.handleRatingChange}>
                                         <label>
-                                            <input type="radio" name="stars" value="1" />
+                                            <input type="radio" name="rating" value="1" />
                                             <span className="icon">★</span>
                                         </label>
                                         <label>
-                                            <input type="radio" name="stars" value="2" />
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="stars" value="3" />
-                                            <span className="icon">★</span>
+                                            <input type="radio" name="rating" value="2" />
                                             <span className="icon">★</span>
                                             <span className="icon">★</span>
                                         </label>
                                         <label>
-                                            <input type="radio" name="stars" value="4" />
-                                            <span className="icon">★</span>
+                                            <input type="radio" name="rating" value="3" />
                                             <span className="icon">★</span>
                                             <span className="icon">★</span>
                                             <span className="icon">★</span>
                                         </label>
                                         <label>
-                                            <input type="radio" name="stars" value="5" />
+                                            <input type="radio" name="rating" value="4" />
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                            <span className="icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="rating" value="5" />
                                             <span className="icon">★</span>
                                             <span className="icon">★</span>
                                             <span className="icon">★</span>

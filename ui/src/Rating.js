@@ -1,27 +1,12 @@
 import React, { Component } from 'react';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    useParams
-} from "react-router-dom";
-import {
-    Navbar,
-    Nav,
     Form,
-    FormControl,
-    NavDropdown,
     Button,
     ButtonGroup,
     Container,
     Row,
     Col,
-    Carousel,
-    Image,
-    CardDeck,
-    CardColumns,
-    Card,
-    CardGroup
+    Card
 } from 'react-bootstrap'
 import leader from './leader.png'
 
