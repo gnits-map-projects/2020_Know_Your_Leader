@@ -18,6 +18,8 @@ class Posts extends Component {
             filter: 'none'
         }
         this.ratePost = this.ratePost.bind(this)
+        this.handleFilterChange = this.handleFilterChange.bind(this)
+        this.handleFilterSubmit = this.handleFilterSubmit.bind(this)
     }
 
     /*handleRatingChange(event) {
