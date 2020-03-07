@@ -7,68 +7,68 @@ import {
     Col,
     Card
 } from 'react-bootstrap'
-import './rating.css'
-
-
+import StarRating from './StarRating.js'
+import PostList from './PostList.js'
 
 class Posts extends Component {
     constructor(props) {
         super(props);
         this.state = {
             posts: [],
-            filter: 'none',
-            rating: 0
+            filter: 'none'
         }
-
-        this.handleRatingChange = this.handleRatingChange.bind(this)
-        this.handleRatingSubmit = this.handleRatingSubmit.bind(this)
-        this.handleFilterChange = this.handleFilterChange.bind(this)
-        this.handleFilterSubmit = this.handleFilterSubmit.bind(this)
-        
+        this.ratePost = this.ratePost.bind(this)
     }
 
-    handleRatingChange(event) {
+    /*handleRatingChange(event) {
         this.setState({
             rating: event.target.value
         });
         console.log(this.state.rating);
-    }
+    }*/
     handleFilterChange = event => {
         this.setState({
             filter: event.target.value
         });
     }
 
-   
-
-    handleRatingSubmit(event, aid) {
+    ratePost(actionid, ratingvalue) {
+        const posts = this.state.posts.map(post =>
+            (post.actionid !== actionid) ?
+                post :
+                {
+                    ...post,
+                    ratingvalue
+                } 
+        )
+        this.setState({ posts })
         var body = {
-            actionid: aid,
-            actionrating: this.state.rate
+            actionid: actionid,
+            email: window.sessionStorage.getItem("username"),
+            ratingvalue: ratingvalue
         }
         console.log(body)
-        const url = "http://localhost:9000/ratingchange";
-            let headers = new Headers();
+        const url = "http://localhost:9000/rating";
+        let headers = new Headers();
 
-            headers.append('Content-Type', 'application/json');
-            headers.append('Accept', 'application/json');
-            headers.append('Access-Control-Allow-origin', url);
-            headers.append('Access-Control-Allow-Credentials', 'true');
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Access-Control-Allow-origin', url);
+        headers.append('Access-Control-Allow-Credentials', 'true');
 
-            headers.append('POST', 'GET');
-            fetch(url, {
-                headers: headers,
-                method: 'POST',
-                body : JSON.stringify(body)
-            })
+        headers.append('POST', 'GET');
+        fetch(url, {
+            headers: headers,
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
             .then(response => response.json())
             .then(contents => {
-              console.log(contents);
+                console.log(contents);
             })
             .catch(() => console.log("can't access" + url + "response. "))
-        event.stopPropagation()
-
     }
+
 
     handleFilterSubmit(event) {
         event.preventDefault();
@@ -93,10 +93,9 @@ class Posts extends Component {
 
     }
 
-
     componentDidMount() {
 
-        const url = 'http://localhost:9000/actions/'+window.sessionStorage.getItem("username")
+        const url = 'http://localhost:9000/actions/' + window.sessionStorage.getItem("username")
         let headers = new Headers();
 
         headers.append('Content-Type', 'application/json');
@@ -116,79 +115,15 @@ class Posts extends Component {
     }
 
     render() {
-        const cardlist = this.state.posts.map(post => {
-            return (
-                <div key={post.actionid}>
-                    <br />
-                    <Card style={{ width: '33rem' }}>
-                        <Card.Header>{post.email}</Card.Header>
-                        <Card.Img variant="top" src={post.actionpath} thumbnail="true" />
-                        <Card.Body>
-                            <Card.Title>{post.actionname}</Card.Title>
-                            <Card.Text>{post.description}</Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                            <Form>
-                                <Form.Group as={Row}>
-                                    <Form.Label column sm="2">Avg Rating</Form.Label>
-                                    <Col sm="10">
-                                        {post.actionrating + "  by  " + post.numberofusers+" users"}
-                                    </Col>
-                                </Form.Group>
-                                <Form.Group as={Row}>
-                                    <Form.Label column sm="2">Your Rating</Form.Label>
-                                    <Col sm="4">
-                                    <div className="rating" onClick={this.handleRatingChange}>
-                                        <label>
-                                            <input type="radio" name="rating" value="1" />
-                                            <span className="icon">★</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="rating" value="2" />
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="rating" value="3" />
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="rating" value="4" />
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="rating" value="5" />
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                            <span className="icon">★</span>
-                                        </label>
-                                    </div>
-                                    </Col>                                    
-                                    <Col sm="4">
-                                        <Button type="submit" onClick={(e) => this.handleRatingSubmit(e, post.actionid)}>Rate</Button>
-                                    </Col>
-                                </Form.Group>
-                            </Form>
-                            <small className="text-muted">Last updated 3 mins ago</small>
-                        </Card.Footer>
-                    </Card>
-                </div>
-            )
-        })
+        const { ratePost } = this 
+        const { posts } = this.state
         return (
             <Container>
                 <Row>
                     <Col md={{ span: 3, offset: 1 }}>
-                        {cardlist}
+                        <PostList posts={posts}
+                                  onRate={ratePost}/>
                     </Col>
-
                     <Col md={{ span: 3, offset: 3 }}>
                         <div>
                             <br />
@@ -218,25 +153,3 @@ class Posts extends Component {
 }
 
 export default Posts;
-
-/*
-<Form.Group as={Row} controlId="exampleForm.ControlSelect1">
-                                    <Form.Label column sm={2}>Rating</Form.Label>
-                                    <Col sm={5}>
-                                        <Form.Control as="select" name='rating' value={post.actionrating} onChange={this.handleRatingChange}>
-                                            <option>...</option>
-                                            <option value='1'>1</option>
-                                            <option value='2'>2</option>
-                                            <option value='3'>3</option>
-                                            <option value='4'>4</option>
-                                            <option value='5'>5</option>
-                                        </Form.Control>
-                                    </Col>
-                                </Form.Group>
-
-
-<Button type="submit" onClick={this.handleRatingSubmit(post.actionid)}>Rate</Button>
-
-    <Form.Control type="number" name="rating" min="1" max="5" value={this.state.rating} onChange={this.handleRatingChange} />
-
-*/

@@ -14,7 +14,6 @@ import Header from './Header';
 import Profile from './Profile';
 import Upload from './Upload'
 import Actions from './Actions'
-import Rating from './Rating'
 import Edit from './Edit'
 
 
@@ -38,7 +37,6 @@ class Routing extends Component {
                     <Route path="/profile" component={Profile} />
                     <Route path="/upload" component={Upload} />
                     <Route path="/actions" component={Actions} />
-                    <Route path="/rating" component={Rating} />
                     <Route path="/edit" component={Edit} />
                 </Switch>
             </Router>
