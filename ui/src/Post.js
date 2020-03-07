@@ -11,6 +11,7 @@ import StarRating from './StarRating.js'
 
 const Post = ({actionid,actionname,description,actionpath,email,actionrating,numberofusers,ratingvalue=0,onRate=f=>f}) => 
 <div>
+    <br/>
 <Card style={{ width: '33rem' }}>
                         <Card.Header>{email}</Card.Header>
                         <Card.Img variant="top" src={actionpath} thumbnail="true" />
