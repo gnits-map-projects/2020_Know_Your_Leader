@@ -3,10 +3,7 @@ package models;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.Persistence;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.*;
 import javax.xml.soap.Name;
 import java.util.Collections;
 import java.util.List;
@@ -41,8 +38,25 @@ public class JPARatingRepository implements RatingRepository {
     }
 
     private Rating insert(EntityManager em, Rating rating) {
-        em.persist(rating);
+        Long actionid = rating.getActionid();
+        String email = rating.getEmail();
+        double ratingvalue = rating.getRatingvalue();
+        Rating r=null;
+        Query query=em.createQuery("select r from Rating r where r.actionid =: actionid and r.email =: email",Rating.class).setParameter("actionid",actionid).setParameter("email",email);
+        try {
+            r = (Rating) query.getSingleResult();
+        }
+        catch (NoResultException nre){
+
+        }
+        if(r == null){
+            em.persist(rating);
+        }
+        else{
+            int i= em.createQuery("update Rating r set r.ratingvalue =: ratingvalue where r.actionid =: actionid and r.email =: email").setParameter("ratingvalue",ratingvalue).setParameter("actionid",actionid).setParameter("email",email).executeUpdate();
+        }
         return rating;
+
     }
 
 
