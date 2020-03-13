@@ -1,6 +1,7 @@
 package models;
 
 import play.db.jpa.JPAApi;
+import scala.util.parsing.json.JSONObject$;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -79,12 +80,45 @@ public class JPAActionRepository implements ActionRepository {
     }
 
     private Stream<Action> list(EntityManager em,String email) {
-        List<Action> actions = em.createQuery("select a from Action a where a.email !=: email", Action.class).setParameter("email",email).getResultList();
+        List<Action> actions = em.createQuery("select a from Action a where a.email !=: email",Action.class).setParameter("email",email).getResultList();
+        for(Action a : actions){
+            Long actionid = a.getActionid();
+            //Long ractionid =
+             List<Rating> rating = em.createQuery("select r from Rating r where r.email =: email and r.action.actionid =: actionid",Rating.class).setParameter("email",email).setParameter("actionid",actionid).getResultList();
+             //TypedQuery<Rating> q = em.createQuery("select r.ratingvalue from Rating r where r.email =: email and r.action.actionid =: actionid",Rating.class);
+             //q.setMaxResults(1);
+             //q.setParameter("email",email).setParameter("actionid",actionid);
+             //Rating r = q.getSingleResult();
+            // if(!rating.isEmpty()) {
+            a.setRating(rating);
+             //}
+
+        }
+        /*List<Object> jsonactions = Collections.emptyList();
+        for(Object[] l : actions) {
+
+            for(Object o : l){
+
+            }
+        }*/
         return actions.stream();
     }
 
     private Stream<Action> lista(EntityManager em,String email) {
         List<Action> actions = em.createQuery("select a from Action a where a.email =: email order by a.actionid desc", Action.class).setParameter("email",email).getResultList();
+        for(Action a : actions){
+            Long actionid = a.getActionid();
+            //Long ractionid =
+            List<Rating> rating = em.createQuery("select r from Rating r where r.email =: email and r.action.actionid =: actionid",Rating.class).setParameter("email",email).setParameter("actionid",actionid).getResultList();
+            //TypedQuery<Rating> q = em.createQuery("select r.ratingvalue from Rating r where r.email =: email and r.action.actionid =: actionid",Rating.class);
+            //q.setMaxResults(1);
+            //q.setParameter("email",email).setParameter("actionid",actionid);
+            //Rating r = q.getSingleResult();
+            // if(!rating.isEmpty()) {
+            a.setRating(rating);
+            //}
+
+        }
         return actions.stream();
     }
 
@@ -93,12 +127,51 @@ public class JPAActionRepository implements ActionRepository {
        List<Action> actions = Collections.emptyList();
         if(filter.equals("top-rated")){
         actions = em.createQuery("select a from Action a where a.email !=: email order by a.actionrating desc", Action.class).setParameter("email",email).getResultList();
+            for(Action a : actions){
+                Long actionid = a.getActionid();
+                //Long ractionid =
+                List<Rating> rating = em.createQuery("select r from Rating r where r.email =: email and r.action.actionid =: actionid",Rating.class).setParameter("email",email).setParameter("actionid",actionid).getResultList();
+                //TypedQuery<Rating> q = em.createQuery("select r.ratingvalue from Rating r where r.email =: email and r.action.actionid =: actionid",Rating.class);
+                //q.setMaxResults(1);
+                //q.setParameter("email",email).setParameter("actionid",actionid);
+                //Rating r = q.getSingleResult();
+                // if(!rating.isEmpty()) {
+                a.setRating(rating);
+                //}
+
+            }
         }
         else if(filter.equals("recent")) {
         actions = em.createQuery("select a from Action a where a.email !=: email order by a.actionid desc", Action.class).setParameter("email",email).getResultList();
+            for(Action a : actions){
+                Long actionid = a.getActionid();
+                //Long ractionid =
+                List<Rating> rating = em.createQuery("select r from Rating r where r.email =: email and r.action.actionid =: actionid",Rating.class).setParameter("email",email).setParameter("actionid",actionid).getResultList();
+                //TypedQuery<Rating> q = em.createQuery("select r.ratingvalue from Rating r where r.email =: email and r.action.actionid =: actionid",Rating.class);
+                //q.setMaxResults(1);
+                //q.setParameter("email",email).setParameter("actionid",actionid);
+                //Rating r = q.getSingleResult();
+                // if(!rating.isEmpty()) {
+                a.setRating(rating);
+                //}
+
+            }
         }
         else {
             actions = em.createQuery("select a from Action a where a.email !=: email order by a.actionid desc", Action.class).setParameter("email",email).getResultList();
+            for(Action a : actions){
+                Long actionid = a.getActionid();
+                //Long ractionid =
+                List<Rating> rating = em.createQuery("select r from Rating r where r.email =: email and r.action.actionid =: actionid",Rating.class).setParameter("email",email).setParameter("actionid",actionid).getResultList();
+                //TypedQuery<Rating> q = em.createQuery("select r.ratingvalue from Rating r where r.email =: email and r.action.actionid =: actionid",Rating.class);
+                //q.setMaxResults(1);
+                //q.setParameter("email",email).setParameter("actionid",actionid);
+                //Rating r = q.getSingleResult();
+                // if(!rating.isEmpty()) {
+                a.setRating(rating);
+                //}
+
+            }
         }
        return actions.stream();
     }

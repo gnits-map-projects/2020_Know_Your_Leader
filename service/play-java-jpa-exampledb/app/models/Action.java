@@ -1,7 +1,13 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Action {
@@ -16,6 +22,10 @@ public class Action {
     public String email;
     public double actionrating;
     public Long numberofusers;
+
+    @OneToMany(mappedBy = "action")
+    private List<Rating> rating = new ArrayList<>();
+
 
 
     public Long getActionid() {
@@ -60,5 +70,13 @@ public class Action {
     }
     public void setNumberofusers(Long numberofusers) {
         this.numberofusers = numberofusers;
+    }
+
+    public List<Rating> getRating() {
+        return rating;
+    }
+
+    public void setRating(List<Rating> rating) {
+        this.rating = rating;
     }
 }

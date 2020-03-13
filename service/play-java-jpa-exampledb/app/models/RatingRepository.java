@@ -11,7 +11,9 @@ import java.util.stream.Stream;
 @ImplementedBy(JPARatingRepository.class)
 public interface RatingRepository {
 
-    CompletionStage<Rating> add(Rating rating);
+    CompletionStage<Rating> add(Long actionid,String email,double ratingvalue);
+
+    CompletionStage<Rating> comment(Long actionid,String email,String comment);
 
 }
 

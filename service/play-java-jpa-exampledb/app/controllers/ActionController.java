@@ -1,4 +1,5 @@
 package controllers;
+import com.google.inject.internal.cglib.core.$AbstractClassGenerator;
 import models.Action;
 import models.ActionRepository;
 import models.Person;
@@ -9,6 +10,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import com.fasterxml.jackson.databind.JsonNode;
 import javax.inject.Inject;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 import java.math.BigInteger;
@@ -16,6 +19,7 @@ import static play.libs.Json.toJson;
 import play.mvc.Http.*;
 import play.libs.Files.TemporaryFile;
 import java.io.File;
+import java.util.stream.Stream;
 
 /**
  * The controller keeps all database operations behind the repository, and uses
@@ -96,8 +100,51 @@ public class ActionController extends Controller {
     }
 
     public CompletionStage<Result> getActions(String email) {
+        //CompletionStage<Stream<Action>> as = actionRepository.list(email);
+        //for()
         return actionRepository.list(email).thenApplyAsync(actionStream -> {
-            return ok(toJson(actionStream.collect(Collectors.toList())));
+            //List result = Collections.emptyList();
+            String msg = null;
+            String result = "";
+            JsonNode a = toJson(actionStream.collect(Collectors.toList()));
+            //JsonNode b
+            //JsonNode p = a.get("rating").
+            for(JsonNode p : a) {
+                //JsonNode y = p.get("rating");
+                if (p.get("rating").size() != 0) {
+                    for (JsonNode x : p.get("rating")) {
+                        JsonNode ratingvalue = x.get("ratingvalue");
+                        JsonNode comment = x.get("comment");
+                        msg = "{\"actionid\" : \"" + p.get("actionid") + "\",\"actionname\":" + p.get("actionname") + ",\"description\":" + p.get("description") + ",\"actionpath\":" + p.get("actionpath") + ",\"email\":" + p.get("email") + ",\"actionrating\":\"" + p.get("actionrating") + "\",\"numberofusers\":\"" + p.get("numberofusers") + "\",\"ratingvalue\":\"" + ratingvalue  + "\",\"comment\":" + comment + "}";
+                        //return ok(x);
+                        if (result != "") {
+                            result = result + "," + msg;
+                        } else {
+                            result = "[" + msg;
+                        }
+                        //result.add(Json.parse(msg));
+                    }
+                }
+                else{
+                    double ratingvalue = 0.0;
+                    String comment = null;
+                    msg = "{\"actionid\" : \"" + p.get("actionid") + "\",\"actionname\":" + p.get("actionname") + ",\"description\":" + p.get("description") + ",\"actionpath\":" + p.get("actionpath") + ",\"email\":" + p.get("email") + ",\"actionrating\":\"" + p.get("actionrating") + "\",\"numberofusers\":\"" + p.get("numberofusers") + "\",\"ratingvalue\":\"" + ratingvalue + "\",\"comment\":" + comment + "}";
+                    //return ok(x);
+                    if (result != "") {
+                        result = result + "," + msg;
+                    } else {
+                        result = "[" + msg;
+                    }
+
+
+                    //return ok(p);
+                }
+            }
+
+            result = result +"]";
+            //JsonNode f = Json.parse(result);
+            return ok(Json.parse(result));
+            //return ok(a);
         }, ec.current());
     }
 
@@ -112,13 +159,95 @@ public class ActionController extends Controller {
 
     public CompletionStage<Result> getUserAction(String email){
         return actionRepository.lista(email).thenApplyAsync(actionStream -> {
-            return ok(toJson(actionStream.collect(Collectors.toList())));
+            //JsonNode a = toJson(actionStream.collect(Collectors.toList()));
+            String msg = null;
+            String result = "";
+            JsonNode a = toJson(actionStream.collect(Collectors.toList()));
+            //JsonNode b
+            //JsonNode p = a.get("rating").
+            for(JsonNode p : a) {
+                //JsonNode y = p.get("rating");
+                if (p.get("rating").size() != 0) {
+                    for (JsonNode x : p.get("rating")) {
+                        JsonNode ratingvalue = x.get("ratingvalue");
+                        JsonNode comment = x.get("comment");
+                        msg = "{\"actionid\" : \"" + p.get("actionid") + "\",\"actionname\":" + p.get("actionname") + ",\"description\":" + p.get("description") + ",\"actionpath\":" + p.get("actionpath") + ",\"email\":" + p.get("email") + ",\"actionrating\":\"" + p.get("actionrating") + "\",\"numberofusers\":\"" + p.get("numberofusers") + "\",\"ratingvalue\":\"" + ratingvalue  + "\",\"comment\":" + comment + "}";
+                        //return ok(x);
+                        if (result != "") {
+                            result = result + "," + msg;
+                        } else {
+                            result = "[" + msg;
+                        }
+                        //result.add(Json.parse(msg));
+                    }
+                }
+                else{
+                    double ratingvalue = 0.0;
+                    String comment = null;
+                    msg = "{\"actionid\" : \"" + p.get("actionid") + "\",\"actionname\":" + p.get("actionname") + ",\"description\":" + p.get("description") + ",\"actionpath\":" + p.get("actionpath") + ",\"email\":" + p.get("email") + ",\"actionrating\":\"" + p.get("actionrating") + "\",\"numberofusers\":\"" + p.get("numberofusers") + "\",\"ratingvalue\":\"" + ratingvalue + "\",\"comment\":" + comment + "}";
+                    //return ok(x);
+                    if (result != "") {
+                        result = result + "," + msg;
+                    } else {
+                        result = "[" + msg;
+                    }
+
+
+                    //return ok(p);
+                }
+            }
+
+            result = result +"]";
+            //JsonNode f = Json.parse(result);
+            return ok(Json.parse(result));
+            //return ok(a);
+            //return ok(a);
         }, ec.current());
     }
 
     public CompletionStage<Result> getActionsFilter(String email, String filter) {
         return actionRepository.listf(email, filter).thenApplyAsync(actionStream -> {
-            return ok(toJson(actionStream.collect(Collectors.toList())));
+            String msg = null;
+            String result = "";
+            JsonNode a = toJson(actionStream.collect(Collectors.toList()));
+            //JsonNode b
+            //JsonNode p = a.get("rating").
+            for(JsonNode p : a) {
+                //JsonNode y = p.get("rating");
+                if (p.get("rating").size() != 0) {
+                    for (JsonNode x : p.get("rating")) {
+                        JsonNode ratingvalue = x.get("ratingvalue");
+                        JsonNode comment = x.get("comment");
+                        msg = "{\"actionid\" : \"" + p.get("actionid") + "\",\"actionname\":" + p.get("actionname") + ",\"description\":" + p.get("description") + ",\"actionpath\":" + p.get("actionpath") + ",\"email\":" + p.get("email") + ",\"actionrating\":\"" + p.get("actionrating") + "\",\"numberofusers\":\"" + p.get("numberofusers") + "\",\"ratingvalue\":\"" + ratingvalue  + "\",\"comment\":" + comment + "}";
+                        //return ok(x);
+                        if (result != "") {
+                            result = result + "," + msg;
+                        } else {
+                            result = "[" + msg;
+                        }
+                        //result.add(Json.parse(msg));
+                    }
+                }
+                else{
+                    double ratingvalue = 0.0;
+                    String comment = null;
+                    msg = "{\"actionid\" : \"" + p.get("actionid") + "\",\"actionname\":" + p.get("actionname") + ",\"description\":" + p.get("description") + ",\"actionpath\":" + p.get("actionpath") + ",\"email\":" + p.get("email") + ",\"actionrating\":\"" + p.get("actionrating") + "\",\"numberofusers\":\"" + p.get("numberofusers") + "\",\"ratingvalue\":\"" + ratingvalue + "\",\"comment\":" + comment + "}";
+                    //return ok(x);
+                    if (result != "") {
+                        result = result + "," + msg;
+                    } else {
+                        result = "[" + msg;
+                    }
+
+
+                    //return ok(p);
+                }
+            }
+
+            result = result +"]";
+            //JsonNode f = Json.parse(result);
+            return ok(Json.parse(result));
+            //return ok(a);
         }, ec.current());
     }
 

@@ -35,12 +35,35 @@ public class RatingController extends Controller {
 
     public CompletionStage<Result> addRating() {
 
-        Rating rating= Json.fromJson(request().body().asJson(),Rating.class);
+        JsonNode j = request().body().asJson();
+        Long actionid = j.get("actionid").asLong();
+        String email = j.get("email").asText();
+        double ratingvalue = j.get("ratingvalue").asDouble();
 
-        return ratingRepository.add(rating).thenApplyAsync(p -> {
-            return ok();
+        /*Long actionid = 5L;
+        String email = "samadbaig@gmail.com";
+        double ratingvalue = 4.0;
+        String comment = "Good Work";*/
+        return ratingRepository.add(actionid, email, ratingvalue).thenApplyAsync(p -> {
+            return ok("update successful");
         }, ec.current());
+
     }
 
+    public CompletionStage<Result> addComment() {
+
+        JsonNode j = request().body().asJson();
+        Long actionid = j.get("actionid").asLong();
+        String email = j.get("email").asText();
+        String comment = j.get("comment").asText();
+
+        /*Long actionid = 5L;
+        String email = "samadbaig@gmail.com";
+        double ratingvalue = 4.0;
+        String comment = "Good Work";*/
+        return ratingRepository.comment(actionid, email,comment).thenApplyAsync(p -> {
+            return ok("update successful");
+        }, ec.current());
+    }
 }
 

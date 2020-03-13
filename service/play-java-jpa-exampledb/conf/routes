@@ -21,7 +21,7 @@ GET     /actionsf/:email/:filter     controllers.ActionController.getActionsFilt
 DELETE  /delaction                  controllers.ActionController.deleteAction()
 
 POST    /rating                     controllers.RatingController.addRating()
-
+POST    /comment                    controllers.RatingController.addComment()
 
 
 #POST    /personwithid               controllers.PersonController.helloUserWithId()
