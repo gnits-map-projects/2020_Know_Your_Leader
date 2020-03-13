@@ -100,6 +100,11 @@ class Profile extends Component {
               <br />
               <br />
               <h2>User Name : {window.sessionStorage.getItem("username")}<br/></h2>
+              <h2>First Name : {window.sessionStorage.getItem("firstname")}<br/></h2>
+              <h2>Last Name : {window.sessionStorage.getItem("lastname")}<br/></h2>
+              <h2>Phone Number : {window.sessionStorage.getItem("phoneno")}<br/></h2>
+              <h2>Locality : {window.sessionStorage.getItem("locality")}<br/></h2>
+              <h2>Pincode : {window.sessionStorage.getItem("pincode")}<br/></h2>
               
               <br/>
               <Button variant="danger" onClick={this.handleRating}>

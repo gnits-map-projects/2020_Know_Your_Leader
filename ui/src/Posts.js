@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap'
 import StarRating from './StarRating.js'
 import PostList from './PostList.js'
+import Locations from './Locations.js'
 
 class Posts extends Component {
     constructor(props) {
@@ -34,14 +35,15 @@ class Posts extends Component {
         });
     }
 
-    ratePost(actionid, ratingvalue) {
+    ratePost(actionid, ratingvalue, comment) {
         const posts = this.state.posts.map(post =>
             (post.actionid !== actionid) ?
                 post :
                 {
                     ...post,
-                    ratingvalue
-                } 
+                    ratingvalue,
+                    comment
+                }
         )
         this.setState({ posts })
         var body = {
@@ -70,6 +72,8 @@ class Posts extends Component {
             })
             .catch(() => console.log("can't access" + url + "response. "))
     }
+
+   
 
 
     handleFilterSubmit(event) {
@@ -117,16 +121,17 @@ class Posts extends Component {
     }
 
     render() {
-        const { ratePost } = this 
+        const { ratePost } = this
+        
         const { posts } = this.state
         return (
             <Container>
                 <Row>
                     <Col md={{ span: 3, offset: 1 }}>
                         <PostList posts={posts}
-                                  onRate={ratePost}/>
+                            onRate={ratePost}/>
                     </Col>
-                    <Col md={{ span: 3, offset: 3 }}>
+                    <Col md={{ span: 5, offset:3 }}>
                         <div>
                             <br />
                             <Form>
@@ -146,12 +151,16 @@ class Posts extends Component {
                             </Form>
                             <br />
                             Maps Component
+                            <Locations />
                     </div>
                     </Col>
                 </Row>
+
             </Container>
         );
     }
 }
+
+export const getPosts = () => this.state.posts
 
 export default Posts;

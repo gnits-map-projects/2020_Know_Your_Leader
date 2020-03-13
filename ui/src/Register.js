@@ -9,25 +9,25 @@ class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      firstname : '',
-      lastname : '',
-      password : '',
-      cpassword : '',
-      phno : '',
-      email : '',
-      gender : '',
-      locality : '',
-      pincode : '',
-      errors:{
-      firstname : '',
-      lastname : '',
-      password : '',
-      cpassword : '',
-      phno : '',
-      email : '',
-      gender : '',
-      locality : '',
-      pincode : '',
+      firstname: '',
+      lastname: '',
+      password: '',
+      cpassword: '',
+      phno: '',
+      email: '',
+      gender: '',
+      locality: '',
+      pincode: '',
+      errors: {
+        firstname: '',
+        lastname: '',
+        password: '',
+        cpassword: '',
+        phno: '',
+        email: '',
+        gender: '',
+        locality: '',
+        pincode: '',
       }
     }
 
@@ -46,13 +46,13 @@ class Register extends Component {
 
   handlefirstnameChange = event => {
     this.setState({
-      firstname : event.target.value
+      firstname: event.target.value
     });
   }
 
   handlelastnameChange = event => {
     this.setState({
-      lastname : event.target.value
+      lastname: event.target.value
     });
   }
 
@@ -63,20 +63,19 @@ class Register extends Component {
 
     const { name, value } = event.target;
     let errors = this.state.errors;
-    errors.password = 
-    event.target.value.length < 8
-      ? 'Password must be 8 characters long!'
-      : '';
-    if(errors.password ===  '')
-      {
-        this.setState({p : true});
-      }
-      this.setState({errors, [name]: value});
+    errors.password =
+      event.target.value.length < 8
+        ? 'Password must be 8 characters long!'
+        : '';
+    if (errors.password === '') {
+      this.setState({ p: true });
+    }
+    this.setState({ errors, [name]: value });
   }
 
   handleconfirmpasswordChange = event => {
     this.setState({
-      cpassword : event.target.value
+      cpassword: event.target.value
     });
   }
 
@@ -86,15 +85,14 @@ class Register extends Component {
     // });
     const { name, value } = event.target;
     let errors = this.state.errors;
-    errors.mobile = 
-    (validMobileRegex.test(event.target.value))
-      ? ''
-      : 'Enter a valid phone number!';
-   if(errors.mobile ===  '')
-    {
-      this.setState({ph : true});
+    errors.mobile =
+      (validMobileRegex.test(event.target.value))
+        ? ''
+        : 'Enter a valid phone number!';
+    if (errors.mobile === '') {
+      this.setState({ ph: true });
     }
-    this.setState({errors, [name]: value});
+    this.setState({ errors, [name]: value });
   }
 
   handleemailChange = event => {
@@ -103,33 +101,32 @@ class Register extends Component {
     });*/
     const { name, value } = event.target;
     let errors = this.state.errors;
-    errors.email = 
-          validEmailRegex.test(event.target.value)
-            ? ''
-            : 'Email is not valid!';
+    errors.email =
+      validEmailRegex.test(event.target.value)
+        ? ''
+        : 'Email is not valid!';
     console.log(errors.email)
-    if(errors.email ===  '')
-      {
-        this.setState({e : true});
-     }       
-     this.setState({errors, [name]: value});
+    if (errors.email === '') {
+      this.setState({ e: true });
+    }
+    this.setState({ errors, [name]: value });
   }
 
   handlegenderChange = event => {
     this.setState({
-      gender : event.target.value
+      gender: event.target.value
     });
   }
 
   handlelocalityChange = event => {
     this.setState({
-      locality : event.target.value
+      locality: event.target.value
     });
   }
 
   handlepincodeChange = event => {
     this.setState({
-      pincode : event.target.value
+      pincode: event.target.value
     });
   }
 
@@ -212,7 +209,7 @@ class Register extends Component {
         })
         .catch(() => console.log("can't access" + url + "response. "))
 
-        window.location.href = "/login";
+      window.location.href = "/login";
 
     }
 
@@ -221,7 +218,7 @@ class Register extends Component {
 
 
   render() {
-    const {errors} = this.state;
+    const { errors } = this.state;
 
     return (
       <div className="bgimage">
@@ -229,7 +226,7 @@ class Register extends Component {
         <br />
         <br />
         <br />
-       
+
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Form onSubmit={this.handleSubmit} >
@@ -329,7 +326,7 @@ class Register extends Component {
                   <option value="Bowenpally">Bowenpally</option>
                   <option value="Boyiguda">Boyiguda</option>
                 </select>
-              </div> 
+              </div>
 
               <div className="form-group">
                 <Form.Label>Pincode:</Form.Label>
@@ -349,7 +346,7 @@ class Register extends Component {
         <br />
         <br />
         <br />
-       
+
       </div>
     );
   }

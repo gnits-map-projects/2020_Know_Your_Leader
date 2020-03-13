@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import Form from 'react-bootstrap/Form'
 import Header from './Header'
 
-var a=sessionStorage.getItem("firstname")
-var b=sessionStorage.getItem("lastname")
-var c=sessionStorage.getItem("password")
-var d=sessionStorage.getItem("phoneno")
-var e=sessionStorage.getItem("locality")
-var f=sessionStorage.getItem("pincode")
-var x=sessionStorage.getItem("cpassword")
+var a = sessionStorage.getItem("firstname")
+var b = sessionStorage.getItem("lastname")
+var c = sessionStorage.getItem("password")
+var d = sessionStorage.getItem("phoneno")
+var e = sessionStorage.getItem("locality")
+var f = sessionStorage.getItem("pincode")
+var x = sessionStorage.getItem("cpassword")
 
 
 
@@ -42,8 +42,8 @@ class Edit extends Component {
 
 
   }
-  
-  
+
+
 
 
   handlefirstnameChange = event => {
@@ -165,15 +165,16 @@ class Edit extends Component {
         method: 'POST',
         body: JSON.stringify(body)
       })
-      .then(response => {if(response.ok){
-        alert("updated successfully")
-        window.location.href = '/profile'
+        .then(response => {
+          if (response.ok) {
+            alert("updated successfully")
+            window.location.href = '/profile'
 
-    }
-    else {
-        alert("not successful")
-    }
-})
+          }
+          else {
+            alert("not successful")
+          }
+        })
       //window.location.href = '/profile'
     }
   }
@@ -189,7 +190,7 @@ class Edit extends Component {
           <br />
           <div className="auth-wrapper">
             <div className="auth-inner">
-              <Form enctype = "multipart/form-data" onSubmit={this.handleSubmit} >
+              <Form enctype="multipart/form-data" onSubmit={this.handleSubmit} >
                 <center><h2>ESTRO</h2></center>
                 <hr />
                 <h3>Edit Profile</h3>
@@ -275,8 +276,8 @@ class Edit extends Component {
                   <input name='pincode' type="text" className="form-control" value={this.state.pincode} onChange={this.handlepincodeChange} />
                 </div>
 
-                
-                
+
+
 
 
 

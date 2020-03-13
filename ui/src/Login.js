@@ -76,37 +76,38 @@ class Login extends Component {
             fetch(url, {
                 headers: headers,
                 method: 'POST',
-                body : JSON.stringify(body)
+                body: JSON.stringify(body)
             })
-                .then(response => {if(response.ok){
-                    result = response.json()
-                    .then(result => {
-                        id = result.id
-                        firstname = result.firstname
-                        lastname = result.lastname
-                        password = result.password
-                        phoneno = result.phoneno
-                        email = result.email
-                        gender = result.gender
-                        locality = result.locality
-                        pincode = result.pincode
-                        window.sessionStorage.setItem("id",id)
-                        window.sessionStorage.setItem("firstname",firstname)
-                        window.sessionStorage.setItem("lastname",lastname)
-                        window.sessionStorage.setItem("password",password)
-                        window.sessionStorage.setItem("phoneno",phoneno)
-                        window.sessionStorage.setItem("gender",gender)
-                        window.sessionStorage.setItem("locality",locality)
-                        window.sessionStorage.setItem("pincode",pincode)
-                    })
-                    window.sessionStorage.setItem("username",this.state.emailid)
-                    window.location.href = "/home";
-                }
-                else {
-                    console.log("Please check your username or password")
-                    alert("INVALID USERNAME OR PASSWORD")
-                }
-            })
+                .then(response => {
+                    if (response.ok) {
+                        result = response.json()
+                            .then(result => {
+                                id = result.id
+                                firstname = result.firstname
+                                lastname = result.lastname
+                                password = result.password
+                                phoneno = result.phoneno
+                                email = result.email
+                                gender = result.gender
+                                locality = result.locality
+                                pincode = result.pincode
+                                window.sessionStorage.setItem("id", id)
+                                window.sessionStorage.setItem("firstname", firstname)
+                                window.sessionStorage.setItem("lastname", lastname)
+                                window.sessionStorage.setItem("password", password)
+                                window.sessionStorage.setItem("phoneno", phoneno)
+                                window.sessionStorage.setItem("gender", gender)
+                                window.sessionStorage.setItem("locality", locality)
+                                window.sessionStorage.setItem("pincode", pincode)
+                            })
+                        window.sessionStorage.setItem("username", this.state.emailid)
+                        window.location.href = "/home";
+                    }
+                    else {
+                        console.log("Please check your username or password")
+                        alert("INVALID USERNAME OR PASSWORD")
+                    }
+                })
         }
 
     }
@@ -122,7 +123,7 @@ class Login extends Component {
                 <br />
                 <div className="auth-wrapper">
                     <div className="auth-inner">
-                        <Form onSubmit = {this.handleSubmit} >
+                        <Form onSubmit={this.handleSubmit} >
                             <center><h2>ESTRO</h2></center>
                             <hr />
                             <h3>Login</h3>
